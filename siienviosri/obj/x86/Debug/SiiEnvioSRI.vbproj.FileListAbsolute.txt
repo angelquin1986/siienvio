@@ -1,0 +1,52 @@
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.Administracion.resources
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.Resources.resources
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\bin\Debug\SiiEnvioSRI.exe
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\bin\Debug\SiiEnvioSRI.pdb
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\bin\Debug\SiiEnvioSRI.xml
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\bin\Debug\WebServiceSRI.pdb
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\bin\Debug\WebServiceSRI.xml
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.exe
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.xml
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.pdb
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.Form1.resources
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\Interop.Sii4A32.dll
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\Interop.VBA.dll
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\Interop.VSPrinter7Lib.dll
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.vbproj.ResolveComReference.cache
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\bin\Debug\WebServiceSRI.dll
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\Interop.VBA.dll
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.vbproj.ResolveComReference.cache
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.exe
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.xml
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.pdb
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.vbprojResolveAssemblyReference.cache
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.Administracion.resources
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.Form1.resources
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.Resources.resources
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.vbproj.GenerateResource.Cache
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\bin\Debug\SiiEnvioSRI.exe
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\bin\Debug\SiiEnvioSRI.pdb
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\bin\Debug\SiiEnvioSRI.xml
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\bin\Debug\WebServiceSRI.dll
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\bin\Debug\WebServiceSRI.pdb
+C:\Users\Dogui\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\SiiEnvioSRI\bin\Debug\WebServiceSRI.xml
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\obj\x86\Debug\Interop.VBA.dll
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\obj\x86\Debug\Interop.VSPrinter7Lib.dll
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.vbproj.ResolveComReference.cache
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.exe
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.xml
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.pdb
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\bin\Debug\SiiEnvioSRI.exe
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\bin\Debug\SiiEnvioSRI.pdb
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\bin\Debug\SiiEnvioSRI.xml
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\bin\Debug\WebServiceSRI.dll
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\bin\Debug\WebServiceSRI.pdb
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\bin\Debug\WebServiceSRI.xml
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.vbprojResolveAssemblyReference.cache
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.Administracion.resources
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.Form1.resources
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.Resources.resources
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.vbproj.GenerateResource.Cache

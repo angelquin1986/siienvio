@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SiiEnvioSRI", "SiiEnvioSRI\SiiEnvioSRI.vbproj", "{B56F4C54-CEE4-46C3-B214-6E88AFE6DD05}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WebServiceSRI", "WebServiceSRI\WebServiceSRI.vbproj", "{8BBB0FAB-7655-426F-902F-45B47F7A628C}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{9A5F2CD1-D0A0-47B7-8E65-7B1D90193166}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B56F4C54-CEE4-46C3-B214-6E88AFE6DD05}.Debug|x86.ActiveCfg = Debug|x86
+		{B56F4C54-CEE4-46C3-B214-6E88AFE6DD05}.Debug|x86.Build.0 = Debug|x86
+		{B56F4C54-CEE4-46C3-B214-6E88AFE6DD05}.Release|x86.ActiveCfg = Release|x86
+		{B56F4C54-CEE4-46C3-B214-6E88AFE6DD05}.Release|x86.Build.0 = Release|x86
+		{8BBB0FAB-7655-426F-902F-45B47F7A628C}.Debug|x86.ActiveCfg = Debug|x86
+		{8BBB0FAB-7655-426F-902F-45B47F7A628C}.Debug|x86.Build.0 = Debug|x86
+		{8BBB0FAB-7655-426F-902F-45B47F7A628C}.Release|x86.ActiveCfg = Release|x86
+		{8BBB0FAB-7655-426F-902F-45B47F7A628C}.Release|x86.Build.0 = Release|x86
+		{9A5F2CD1-D0A0-47B7-8E65-7B1D90193166}.Debug|x86.ActiveCfg = Debug
+		{9A5F2CD1-D0A0-47B7-8E65-7B1D90193166}.Release|x86.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

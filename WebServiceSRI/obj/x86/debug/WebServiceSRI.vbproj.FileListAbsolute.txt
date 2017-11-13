@@ -1,0 +1,18 @@
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\WebServiceSRI\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\WebServiceSRI\obj\x86\Debug\WebServiceSRI.Resources.resources
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\WebServiceSRI\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\WebServiceSRI\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\WebServiceSRI\bin\Debug\WebServiceSRI.pdb
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\WebServiceSRI\bin\Debug\WebServiceSRI.xml
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\WebServiceSRI\obj\x86\Debug\WebServiceSRI.xml
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\WebServiceSRI\obj\x86\Debug\WebServiceSRI.pdb
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\WebServiceSRI\bin\Debug\WebServiceSRI.dll
+C:\Users\Desarrollo01\Dropbox\Codigo Fuente\Visual Basic .NET\FacturaElectronica\SiiEnvioSRI\WebServiceSRI\obj\x86\Debug\WebServiceSRI.dll
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\WebServiceSRI\bin\Debug\WebServiceSRI.dll
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\WebServiceSRI\bin\Debug\WebServiceSRI.pdb
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\WebServiceSRI\bin\Debug\WebServiceSRI.xml
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\WebServiceSRI\obj\x86\Debug\WebServiceSRI.Resources.resources
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\WebServiceSRI\obj\x86\Debug\WebServiceSRI.vbproj.GenerateResource.Cache
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\WebServiceSRI\obj\x86\Debug\WebServiceSRI.dll
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\WebServiceSRI\obj\x86\Debug\WebServiceSRI.xml
+C:\Users\ASERVER-PC\Desktop\fuentes siienvio\WebServiceSRI\obj\x86\Debug\WebServiceSRI.pdb
