@@ -21,13 +21,16 @@ Public Class Administracion
 
     Dim SRI As New EnvioSRI
     Dim Archivo As New Archivo
+    Dim lstListaComprobantesGenerados As New Collection
+    Dim lstListaComprobantesFirmados As New Collection
+
 
     Private Sub Administracion_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         blnContingencia = False
         CargarConfiguracionServidorCorreo()
         CargarConfiguracion()
-        configurarListView()
-        cargaListView()
+        'configurarListView()
+        cargaListaComprobantesGenerados()
 
         If chkIniciarAplicacion.Checked = True Then
             Me.btnFirmarEnviar_Click(sender, e)
@@ -36,7 +39,7 @@ Public Class Administracion
 
     End Sub
 
-    Private Sub recorrerListView()
+    Private Sub autorizarFacturaElectronica()
 
         Dim Firma As New FirmarXML
         Dim strArchivoXMLGenerado As String = ""
@@ -47,10 +50,10 @@ Public Class Administracion
         Firma.ContrasenaToken = txtContraseniaToken.Text
         Firma.DirectorioFirmados = txtComprobantesFirmados.Text
 
-        For Each item As ListViewItem In lstListaComprobantes.Items
-            strArchivoXMLGenerado = Me.txtComprobantesGenerados.Text & "\" & item.Text
-            strNombreArchivo = item.Text
-
+        For Each item As String In lstListaComprobantesGenerados
+            strArchivoXMLGenerado = Me.txtComprobantesGenerados.Text & "\" & item
+            strNombreArchivo = item
+            'se carga los path nesesarios de las otras carpetas
             '-------------------------------------------------------------
             Archivo.CarpetaContingencia = txtcomprobantesContingencia.Text
             Archivo.CarpetaAutorizados = txtComprobantesAutorizados.Text
@@ -59,7 +62,7 @@ Public Class Administracion
             Archivo.CarpetaNoAutorizados = txtComprobantesNoautorizados.Text
             Archivo.NombreArchivo = strNombreArchivo
             '-------------------------------------------------------------
-
+            'comprobar si el archivo xml es correcto
             If Archivo.IsValidXML(strArchivoXMLGenerado) Then
                 If blnContingencia = True Then
                     Firma.DirectorioGenerados = txtcomprobantesContingencia.Text
@@ -67,11 +70,12 @@ Public Class Administracion
                     Firma.DirectorioGenerados = txtComprobantesGenerados.Text
                 End If
                 Firma.ArchivoXMLGenerado = strNombreArchivo
-
+                'firma el archivo xml a enviar
                 If Firma.Firmar() Then
-                    SRI.ArchivoXMLFirmado = Firma.ArchivoXMLFirmado
+                    'toma el path del archivo firmado que  nos retorna del objeto  FirmarXML
+                    SRI.ArchivoXMLPorAutorizar = Firma.ArchivoXMLFirmado
                     SRI.Proxy = chkUtilizarProxy.Checked
-                    Select Case SRI.sendComprobanteSRI()
+                    Select Case SRI.enviarComprobanteAlSRI(txtUrlRecepcionProduccion.Text, txtUrlAutorizacionProduccion.Text, txtUrlRecepcionPruebas.Text, txtUrlAutorizacionPruebas.Text)
                         Case 1
                             'AUTORIZADO
                             GuardarDatosSRI(1, 1)
@@ -81,11 +85,11 @@ Public Class Administracion
                             'NO AUTORIZADO
                             GuardarDatosSRI(1, 2)
                             Archivo.CrearArchivos(Microsoft.VisualBasic.Left(SRI.ArchivoXMLAutorizado, 30000), 2)
-                        Case 3
+                        Case 3 'la contingencia es cuado esta con errores
                             'CONTINGENCIA
                             GuardarDatosSRI(0, 3)
                             Archivo.CrearArchivos(SRI.ArchivoXMLAutorizado, 3)
-                        Case Else
+                        Case Else 'la contingencia es cuado esta con errores
                             'CONTINGENCIA
                             GuardarDatosSRI(0, 3)
                             Archivo.CrearArchivos(SRI.ArchivoXMLAutorizado, 3)
@@ -125,53 +129,95 @@ Public Class Administracion
             Me.txtcomprobantesContingencia.Text & "\" & strArchivo & " " & _
             Me.txtComprobantesFirmados.Text & "\" & strArchivo
     End Function
-
+    'Evento que se ejecutar en  el intervalo seleccionado  por la pantalla
     Private Sub tmrActualizaLista_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrActualizaLista.Tick
         tmrActualizaLista.Stop()
-        If lstListaComprobantes.Items.Count <> 0 Then
-            recorrerListView()
-            lstListaComprobantes.Items.Clear()
-        Else
-            cargaListView()
-        End If
-        CargarReEnvioCorreo()
-        TiempoEjecutar()
+        'metodo general de siiEnvia
+        ejecutarProcesoSiiEnvia()
+        tiempoEjecutar()
     End Sub
+    'Metodo general que se ejecuta en el timer  de la aplicacion
+    Public Sub ejecutarProcesoSiiEnvia()
+        Dim log As New Log
+        log.NombreFuncion = "Metodo Principal :ejecutarProcesoSiiEnvia()"
+        Try
+            'para el caso de que la lista este vacia debera buscar comprobantes
+            If lstListaComprobantesGenerados.Count <= 0 Then
+                cargaListaComprobantesGenerados()
+            End If
+            'valida si la lista de comprobantes generados  esta llena  para procesarlos
+            ''autorizarFacturaElectronica()
+            Dim procesoOffLine As New ProcesoSRIFacturacionOffLine(txtComprobantesFirmados.Text, txtComprobantesGenerados.Text, txtComprobantesAutorizados.Text, txtcomprobantesContingencia.Text, txtComprobantesPorAutorizar.Text, txtComprobantesNoautorizados.Text, _
+                                                            txtUrlRecepcionProduccion.Text, txtUrlAutorizacionProduccion.Text, txtUrlRecepcionPruebas.Text, txtUrlAutorizacionPruebas.Text, chkUtilizarProxy.Checked)
+            procesoOffLine.ejecutarProcesoOffLineSRI(txtArchivoP12.Text, txtContraseniaToken.Text, lstListaComprobantesGenerados, False)
+            lstListaComprobantesGenerados.Clear()
+            ' @aquingaluisa Metodo comentado porque Angel confirma que el envio de mail lo hacen desde el AUTOREADER
+            'cargarReEnvioCorreo()
 
-    Private Sub TiempoEjecutar()
+            log.SistemaError = "Termino con exito"
+            log.MensajeError = "Termino con exito :ejecutarProcesoSiiEnvia"
+        Catch ex As Exception
+            log.SistemaError = ex.Message
+            log.MensajeError = "Error al ejecutar metodo"
+        End Try
+
+        
+    End Sub
+    'Metodo para iniciar nuevamente la ejecucion del timer
+    Private Sub tiempoEjecutar()
         tmrActualizaLista.Interval = (Convert.ToString(nudNumActualiza.Value) * 1000)
         tmrActualizaLista.Start()
     End Sub
 
-    Private Sub configurarListView()
-        Dim cabecera1, cabecera2 As ColumnHeader
+    'Private Sub configurarListView()
+    '    Dim cabecera1, cabecera2 As ColumnHeader
 
-        cabecera1 = New ColumnHeader
-        cabecera2 = New ColumnHeader
-        '--------------------------------------------------------------------------------------------
-        cabecera1.Text = "Archivos Firmados"
-        cabecera2.Text = "Fecha"
-        cabecera1.Width = 450
-        cabecera2.Width = 170
-        cabecera1.TextAlign = HorizontalAlignment.Left
-        cabecera2.TextAlign = HorizontalAlignment.Left
-        '--------------------------------------------------------------------------------------------
-        lstListaComprobantes.Columns.Add(cabecera1)
-        lstListaComprobantes.Columns.Add(cabecera2)
-        lstListaComprobantes.View = View.Details
-    End Sub
+    '    cabecera1 = New ColumnHeader
+    '    cabecera2 = New ColumnHeader
+    '    '--------------------------------------------------------------------------------------------
+    '    cabecera1.Text = "Archivos Firmados"
+    '    cabecera2.Text = "Fecha"
+    '    cabecera1.Width = 450
+    '    cabecera2.Width = 170
+    '    cabecera1.TextAlign = HorizontalAlignment.Left
+    '    cabecera2.TextAlign = HorizontalAlignment.Left
+    '    '--------------------------------------------------------------------------------------------
+    '    lstListaComprobantes.Columns.Add(cabecera1)
+    '    lstListaComprobantes.Columns.Add(cabecera2)
+    '    lstListaComprobantes.View = View.Details
+    'End Sub
 
-    Private Sub cargaListView()
-        lstListaComprobantes.Items.Clear()
+    Private Sub cargaListaComprobantesGeneradosDeprecado()
+        'limpiar los datos  de la lista de comprobantes generados
+        lstListaComprobantesGenerados.Clear()
 
         Dim newCurrentDirectory As DirectoryInfo = New DirectoryInfo(txtComprobantesGenerados.Text)
 
         If newCurrentDirectory.Attributes <> -1 Then
             For Each filesfrom In newCurrentDirectory.GetFiles("*.xml", IO.SearchOption.AllDirectories)
-                Dim NewItem01 As ListViewItem = Me.lstListaComprobantes.Items.Add(filesfrom.Name)
-                NewItem01.SubItems.Add(filesfrom.CreationTime)
+                ' Dim NewItem01 As ListViewItem = MlstListaComprobantes.Items.Add(filesfrom.Name)
+                'NewItem01.SubItems.Add(filesfrom.CreationTime)
             Next
         End If
+    End Sub
+
+    'metodo para cargar los datos de la carpeta generados
+    Private Sub cargaListaComprobantesGenerados()
+        Dim archivo As New Archivo()
+        lstListaComprobantesGenerados.Clear()
+        lstListaComprobantesGenerados = archivo.cargarListaNombreArchivo(txtComprobantesGenerados.Text, "*.xml")
+    End Sub
+    'metodo para cargar los datos de la carpeta contingencia
+    Private Sub cargaListaComprobantesContingencia()
+        Dim archivo As New Archivo()
+        lstListaComprobantesGenerados.Clear()
+        lstListaComprobantesGenerados = archivo.cargarListaNombreArchivo(txtcomprobantesContingencia.Text, "*.xml")
+    End Sub
+
+    Private Sub cargaListaComprobantesFirmados()
+        Dim archivo As New Archivo()
+        lstListaComprobantesGenerados.Clear()
+        lstListaComprobantesGenerados = archivo.cargarListaNombreArchivo(txtComprobantesFirmados.Text, "*.xml")
     End Sub
 
     Private Sub CargarConfiguracion()
@@ -193,6 +239,11 @@ Public Class Administracion
             strTipoAmbiente = Convert.ToString(row("TipoAmbiente"))
             txtcomprobantesContingencia.Text = Convert.ToString(row("ComprobantesContingencia"))
             txtComprobantesEnviados.Text = Convert.ToString(row("ComprobantesEnviados"))
+            txtUrlAutorizacionProduccion.Text = Convert.ToString(row("wsSriProduccionAutorizacion"))
+            txtUrlRecepcionProduccion.Text = Convert.ToString(row("wsSriProduccionRecepcion"))
+            txtUrlAutorizacionPruebas.Text = Convert.ToString(row("wsSriPruebasAutorizacion"))
+            txtUrlRecepcionPruebas.Text = Convert.ToString(row("wsSriPruebasRecepcion"))
+
         End If
         '--------------------------------------------------------------------------------------------
         If strTipoAmbiente = "1" Then
@@ -338,15 +389,15 @@ Public Class Administracion
         End If
     End Sub
 
-    Private Sub btnGuardar_Click(sender As System.Object, e As System.EventArgs) Handles btnGuardar.Click
+    Private Sub btnGuardar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGuardar.Click
         GuardarConfiguracion()
     End Sub
 
-    Private Sub btnFirmarEnviar_Click(sender As System.Object, e As System.EventArgs) Handles btnFirmarEnviar.Click
+    Private Sub btnFirmarEnviar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFirmarEnviar.Click
         If blnCambiarTextoBotonEnvio = False Then
             btnFirmarEnviar.Text = "Detener"
             blnCambiarTextoBotonEnvio = True
-            TiempoEjecutar()
+            tiempoEjecutar()
         Else
             tmrActualizaLista.Stop()
             btnFirmarEnviar.Text = "Iniciar"
@@ -479,6 +530,27 @@ Public Class Administracion
             Exit Sub
         End If
 
+        If txtUrlRecepcionProduccion.Text = "" Or Len(txtUrlRecepcionProduccion.Text) >= 255 Then
+            MsgBox("Las dirección  del ws Recepción Producción no puede ser nula.")
+            txtUrlRecepcionProduccion.Focus()
+            Exit Sub
+        End If
+        If txtUrlAutorizacionProduccion.Text = "" Or Len(txtUrlAutorizacionProduccion.Text) >= 255 Then
+            MsgBox("Las dirección  del ws Autorización Producción no puede ser nula.")
+            txtUrlAutorizacionProduccion.Focus()
+            Exit Sub
+        End If
+        If txtUrlRecepcionPruebas.Text = "" Or Len(txtUrlRecepcionPruebas.Text) >= 255 Then
+            MsgBox("Las dirección  del ws Recepción Pruebas no puede ser nula.")
+            txtUrlRecepcionPruebas.Focus()
+            Exit Sub
+        End If
+        If txtUrlAutorizacionPruebas.Text = "" Or Len(txtUrlAutorizacionPruebas.Text) >= 255 Then
+            MsgBox("Las dirección  del ws Autorización Producción no puede ser nula.")
+            txtUrlAutorizacionPruebas.Focus()
+            Exit Sub
+        End If
+
         If chkConexionSegura.Checked = True Then
             intConexionSeguridad = 1
         Else
@@ -504,10 +576,11 @@ Public Class Administracion
         Archivo.GuardarArchivoTexto("C:\IA\EnvioSRI\iadt002.ibz", Codificar.CodificarTexto, False)
 
         BD.GuardarConfigServidorCorreo(txtPuerto.Text, txtServidorCorreo.Text, txtNombreUsuario.Text, txtContrasenaCorreo.Text, txtAsunto.Text, txtMensaje.Text, intConexionSeguridad, txtEnviarCopia.Text, txtUsuarioCorreo.Text)
-        BD.GuardarConfiguracionGeneral(txtComprobantesGenerados.Text, txtComprobantesFirmados.Text, txtComprobantesAutorizados.Text, txtComprobantesNoautorizados.Text, txtArchivoP12.Text, txtContraseniaToken.Text, strTipoAmbiente01, txtcomprobantesContingencia.Text, txtComprobantesEnviados.Text)
+        BD.GuardarConfiguracionGeneral(txtComprobantesGenerados.Text, txtComprobantesFirmados.Text, txtComprobantesAutorizados.Text, txtComprobantesNoautorizados.Text, txtArchivoP12.Text, txtContraseniaToken.Text, strTipoAmbiente01, txtcomprobantesContingencia.Text, txtComprobantesEnviados.Text,
+                                       txtUrlRecepcionProduccion.Text, txtUrlAutorizacionProduccion.Text, txtUrlRecepcionPruebas.Text, txtUrlAutorizacionPruebas.Text)
     End Sub
 
-    Private Sub btnExaminar01_Click(sender As System.Object, e As System.EventArgs) Handles btnExaminar01.Click
+    Private Sub btnExaminar01_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExaminar01.Click
         Dim folderDlg As New FolderBrowserDialog
 
         folderDlg.ShowNewFolderButton = True
@@ -517,7 +590,7 @@ Public Class Administracion
         End If
     End Sub
 
-    Private Sub btnExaminar02_Click(sender As System.Object, e As System.EventArgs) Handles btnExaminar02.Click
+    Private Sub btnExaminar02_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExaminar02.Click
         Dim folderDlg As New FolderBrowserDialog
 
         folderDlg.ShowNewFolderButton = True
@@ -527,7 +600,7 @@ Public Class Administracion
         End If
     End Sub
 
-    Private Sub btnExaminar03_Click(sender As System.Object, e As System.EventArgs) Handles btnExaminar03.Click
+    Private Sub btnExaminar03_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExaminar03.Click
         Dim folderDlg As New FolderBrowserDialog
 
         folderDlg.ShowNewFolderButton = True
@@ -537,7 +610,7 @@ Public Class Administracion
         End If
     End Sub
 
-    Private Sub btnExaminar04_Click(sender As System.Object, e As System.EventArgs) Handles btnExaminar04.Click
+    Private Sub btnExaminar04_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExaminar04.Click
         Dim folderDlg As New FolderBrowserDialog
 
         folderDlg.ShowNewFolderButton = True
@@ -547,7 +620,7 @@ Public Class Administracion
         End If
     End Sub
 
-    Private Sub Button1_Click(sender As System.Object, e As System.EventArgs) Handles btnExaminar05.Click
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExaminar05.Click
         Dim fileDialogBox As New OpenFileDialog()
 
         fileDialogBox.Filter = "Certificado estandar x.509 en formato p12 (*.p12)|*.p12|" _
@@ -560,11 +633,11 @@ Public Class Administracion
         End If
     End Sub
 
-    Private Sub btnSalir_Click(sender As System.Object, e As System.EventArgs) Handles btnSalir.Click
+    Private Sub btnSalir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSalir.Click
         Me.Close()
     End Sub
 
-    Private Sub btnExaminar06_Click(sender As System.Object, e As System.EventArgs) Handles btnExaminar06.Click
+    Private Sub btnExaminar06_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExaminar06.Click
         Dim fileDialogBox As New OpenFileDialog()
 
         fileDialogBox.Filter = "Archivo de texto (*.txt)|*.txt|" _
@@ -576,7 +649,7 @@ Public Class Administracion
         End If
     End Sub
 
-    Private Sub btnCargarClaves_Click(sender As System.Object, e As System.EventArgs) Handles btnCargarClaves.Click
+    Private Sub btnCargarClaves_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCargarClaves.Click
         If txtClaveContingencia.Text = "" Or Len(txtClaveContingencia.Text) >= 255 Then
             MsgBox("No ha seleccionado ningún archivo")
         Else
@@ -620,7 +693,7 @@ Public Class Administracion
         End If
     End Sub
 
-    Private Sub btnExaminar07_Click(sender As System.Object, e As System.EventArgs) Handles btnExaminar07.Click
+    Private Sub btnExaminar07_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExaminar07.Click
         Dim folderDlg As New FolderBrowserDialog
 
         folderDlg.ShowNewFolderButton = True
@@ -630,23 +703,15 @@ Public Class Administracion
         End If
     End Sub
 
-    Private Sub btnReenviarComprobantes_Click(sender As System.Object, e As System.EventArgs) Handles btnReenviarComprobantes.Click
+    Private Sub btnReenviarComprobantes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReenviarComprobantes.Click
         tmrActualizaLista.Stop()
-        lstListaComprobantes.Items.Clear()
-
-        Dim newCurrentDirectory As DirectoryInfo = New DirectoryInfo(txtcomprobantesContingencia.Text)
-
-        If newCurrentDirectory.Attributes <> -1 Then
-            For Each filesfrom In newCurrentDirectory.GetFiles("*.xml", IO.SearchOption.AllDirectories)
-                Dim NewItem01 As ListViewItem = Me.lstListaComprobantes.Items.Add(filesfrom.Name)
-                NewItem01.SubItems.Add(filesfrom.CreationTime)
-            Next
-        End If
+        'carga la lista de generados como contingencia
+        cargaListaComprobantesContingencia()
         blnContingencia = True
-        recorrerListView()
+        autorizarFacturaElectronica()
     End Sub
 
-    Private Sub chkUtilizarProxy_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkUtilizarProxy.CheckedChanged
+    Private Sub chkUtilizarProxy_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkUtilizarProxy.CheckedChanged
         If chkUtilizarProxy.Checked = True Then
             txtDireccionProxy.Enabled = True
             txtPuertoProxy.Enabled = True
@@ -657,7 +722,7 @@ Public Class Administracion
 
     End Sub
 
-    Private Sub ntfAreaNotificacion_MouseDoubleClick(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles ntfAreaNotificacion.MouseDoubleClick
+    Private Sub ntfAreaNotificacion_MouseDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles ntfAreaNotificacion.MouseDoubleClick
         'Primero lo maximizamos
         Me.WindowState = FormWindowState.Normal
         'Refrescamos los controles del formulario, sólo por nitidez.
@@ -714,7 +779,7 @@ Public Class Administracion
         End If
     End Sub
 
-    Private Sub CargarReEnvioCorreo()
+    Private Sub cargarReEnvioCorreo()
         Dim strHoraSistema As String = Now.ToString("HH:mm")
         Dim dteEstablecida As DateTime = dtpHoraEnvio.Value
         Dim dteMinuto As String = dteEstablecida.Minute
@@ -772,7 +837,7 @@ Public Class Administracion
         Next
     End Sub
 
-    Private Sub btnExaminar08_Click(sender As System.Object, e As System.EventArgs) Handles btnExaminar08.Click
+    Private Sub btnExaminar08_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExaminar08.Click
         Dim folderDlg As New FolderBrowserDialog
 
         folderDlg.ShowNewFolderButton = True
@@ -780,5 +845,17 @@ Public Class Administracion
         If (folderDlg.ShowDialog() = DialogResult.OK) Then
             txtComprobantesEnviados.Text = folderDlg.SelectedPath
         End If
+    End Sub
+
+    Private Sub Button1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPruebaTimer.Click
+        ejecutarProcesoSiiEnvia()
+    End Sub
+
+    Private Sub Label32_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label32.Click
+
+    End Sub
+
+    Private Sub TabCompFirmados_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TabCompFirmados.Click
+
     End Sub
 End Class

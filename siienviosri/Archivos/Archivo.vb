@@ -8,8 +8,9 @@ Public Class Archivo
     Private strCarpetaFirmados As String = ""
     Private strCarpetaAutorizados As String = ""
     Private strCarpetaContingencia As String = ""
-    Private strNombreArchivo As String = ""
+    Private strCarpetaPorAutorizar As String = ""
     Private strCarpetaNoAutorizados As String = ""
+    Private strNombreArchivo As String = ""
 
     '---------------------------------------------------
     'Uso local
@@ -19,6 +20,15 @@ Public Class Archivo
     Private xml As XmlDocument = Nothing
     Dim blnComprobar As Boolean = False
     '---------------------------------------------------
+
+    Public Property CarpetaPorAutorizar() As String
+        Get
+            Return strCarpetaPorAutorizar
+        End Get
+        Set(ByVal value As String)
+            strCarpetaPorAutorizar = value
+        End Set
+    End Property
 
     Public Property CarpetaGenerados() As String
         Get
@@ -149,6 +159,7 @@ Public Class Archivo
             '//
             Return False
         End Try
+        Return False
     End Function
 
     Public Function ReemplazarCaracter(ByVal strTexto As String, ByVal strCaracter01 As String, ByVal strCaracter02 As String) As String
@@ -165,13 +176,38 @@ Public Class Archivo
         strXmlCorrecto = strXmlCorrecto.Replace("<?xml version=""1.0"" encoding=""UTF-8""?>", "")
         Return strXmlCorrecto
     End Function
+    'Metodo para eliminar un archivo
+    Public Function eliminarArchivo(ByVal strNombreArchivo As String) As Boolean
+        If System.IO.File.Exists(strNombreArchivo) Then
+            File.Delete(strNombreArchivo)
+        End If
+        Return True
 
+    End Function
+    'Metodo para cargar  una lista de nombres de ar
+    Public Function cargarListaNombreArchivo(ByVal strPathArchivo As String, ByVal txtNombreArchivo As String) As Collection
+        '"*.xml"
+        'limpiar los datos  de la lista de comprobantes generados
+        Dim lstListaComprobantes As New Collection
+        lstListaComprobantes.Clear()
+
+        Dim directorio As DirectoryInfo = New DirectoryInfo(strPathArchivo)
+
+        If directorio.Attributes <> -1 Then
+            'tomo los  archivos  que necesita buscar
+            For Each filesfrom In directorio.GetFiles(txtNombreArchivo, IO.SearchOption.AllDirectories)
+                lstListaComprobantes.Add(filesfrom.Name)
+            Next
+        End If
+        Return lstListaComprobantes
+    End Function
     Public Function CrearArchivos(ByVal xmlSRI_Devuleve As String, ByVal intEstado As Byte) As Boolean ' Funcion crea archivo autorizado
         Dim strGenerados As String = strCarpetaGenerados & "\" & strNombreArchivo
         Dim strFirmados As String = strCarpetaFirmados & "\" & strNombreArchivo
         Dim strAutorizados As String = strCarpetaAutorizados & "\" & strNombreArchivo
         Dim strContingencia As String = strCarpetaContingencia & "\" & strNombreArchivo
         Dim strNoAutorizados As String = strCarpetaNoAutorizados & "\" & strNombreArchivo
+        Dim strPorAutorizar As String = strCarpetaPorAutorizar & "\" & strNombreArchivo
 
         CopiaGenerados(strCarpetaGenerados, strNombreArchivo, strArchivoRelativoXML)
         'Dim prueba As String = strArchivoRelativoXML
@@ -179,13 +215,15 @@ Public Class Archivo
         Select Case intEstado
             Case 1 ' Autorizados
                 If File.Exists(strGenerados) Then File.Delete(strGenerados)
-                If File.Exists(strFirmados) Then File.Delete(strFirmados)
+                'ahora el proceso de envio  tiene que tomar de por autorizar por tal motivo va a No autorizado
+                If File.Exists(strPorAutorizar) Then File.Delete(strPorAutorizar)
                 If File.Exists(strAutorizados) Then File.Delete(strAutorizados)
                 GuardarArchivoTexto(strAutorizados, xmlSRI_Devuleve, True)
                 strArchivoParaEnviar = strAutorizados
             Case 2 ' No Autorizado
                 If File.Exists(strGenerados) Then File.Delete(strGenerados)
-                If File.Exists(strFirmados) Then File.Delete(strFirmados)
+                'ahora el proceso de envio  tiene que tomar de por autorizar por tal motivo va a No autorizado
+                If File.Exists(strPorAutorizar) Then File.Delete(strPorAutorizar)
                 If File.Exists(strContingencia) Then File.Delete(strContingencia)
                 If File.Exists(strNoAutorizados) Then File.Delete(strNoAutorizados)
                 GuardarArchivoTexto(strNoAutorizados, xmlSRI_Devuleve, True)
@@ -340,19 +378,19 @@ Public Class Archivo
         '--------------------------------------------------------------------------------------------------------
         If fileNameXML <> String.Empty Then
             reader = New XmlTextReader(New StringReader(fileNameXML))
-            Xml = New XmlDocument()
+            xml = New XmlDocument()
             '----------------------------------------------------------------------------------------------------
-            Xml.PreserveWhitespace = True
+            xml.PreserveWhitespace = True
             '----------------------------------------------------------------------------------------------------
-            Xml.Load(reader)
+            xml.Load(reader)
             '----------------------------------------------------------------------------------------------------
-            retVal = Xml.OuterXml
+            retVal = xml.OuterXml
             '----------------------------------------------------------------------------------------------------
             'reader.Close()
         End If
         reader.Close()
         reader = Nothing
-        Xml = Nothing
+        xml = Nothing
         '--------------------------------------------------------------------------------------------------------
         getOuterXML = retVal
         '--------------------------------------------------------------------------------------------------------

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura id="comprobante" version="1.1.0"><infoTributaria><ambiente>2</ambiente><tipoEmision>1</tipoEmision><razonSocial>NITROLLANTA CIA LTDA</razonSocial><nombreComercial>NITROLLANTA CIA LTDA</nombreComercial><ruc>0102009784001</ruc><claveAcceso>1511201701010200978400120017500000000050000000018</claveAcceso><codDoc>01</codDoc><estab>001</estab><ptoEmi>750</ptoEmi><secuencial>000000005</secuencial><dirMatriz>Octavio Chacon 380 y Cornelio Vintimilla</dirMatriz></infoTributaria><infoFactura> <fechaEmision>15/11/2017</fechaEmision><dirEstablecimiento>AV. OCTAVIO CHACON 3-80 CORNELIO VINTIMILLA</dirEstablecimiento><contribuyenteEspecial>443</contribuyenteEspecial> <obligadoContabilidad>SI</obligadoContabilidad> <tipoIdentificacionComprador>04</tipoIdentificacionComprador><razonSocialComprador>GRAFICAS HERNANDEZ</razonSocialComprador><identificacionComprador>0190066797001</identificacionComprador><totalSinImpuestos>1.79</totalSinImpuestos><totalDescuento>0.00</totalDescuento><totalConImpuestos><totalImpuesto><codigo>2</codigo><codigoPorcentaje>2</codigoPorcentaje><baseImponible>1.79</baseImponible><valor>0.21</valor></totalImpuesto></totalConImpuestos><propina> 0.00 </propina> <importeTotal>2.00</importeTotal> <moneda>DOLAR</moneda><pagos> <pago><formaPago>01</formaPago><total>2.00</total><plazo>0</plazo><unidadTiempo>dias</unidadTiempo></pago></pagos> </infoFactura> <detalles><detalle><codigoPrincipal>SE0440</codigoPrincipal><descripcion>SE PARCHADO LLANTA VEHICULO</descripcion><cantidad>1.00</cantidad><precioUnitario>1.7900</precioUnitario><descuento> 0.00 </descuento><precioTotalSinImpuesto>1.79</precioTotalSinImpuesto><impuestos><impuesto><codigo>2</codigo><codigoPorcentaje>2</codigoPorcentaje><tarifa>12</tarifa><baseImponible>1.79</baseImponible><valor>0.21</valor></impuesto></impuestos></detalle></detalles><infoAdicional><campoAdicional nombre="Dirección">CORNELIO VINTIMILLA Y OCTAVIO CHACON</campoAdicional><campoAdicional nombre="Teléfono">2800152</campoAdicional><campoAdicional nombre="Email">angel.uzhca@hotmail.com</campoAdicional><campoAdicional nombre="Nombre Vendedor">BOLIVAR LIMA</campoAdicional><campoAdicional nombre="Fuente">OT-61170</campoAdicional></infoAdicional><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature631834">
+<ds:SignedInfo Id="Signature-SignedInfo62346">
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod>
+<ds:Reference Id="SignedPropertiesID403849" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature631834-SignedProperties849046">
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>6IYWdniy8iF0ncPztXdjqi47wZw=</ds:DigestValue>
+</ds:Reference>
+<ds:Reference URI="#Certificate1710555">
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>CcphZ16I1AzT4Ll8OziHjPkBGNc=</ds:DigestValue>
+</ds:Reference>
+<ds:Reference Id="Reference-ID-946475" URI="#comprobante">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>TmNM5iOKMRcRP+cif/bfqwO2TwY=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue Id="SignatureValue899471">
+e+ll/Viokb132/7IE2YQ8jM2joho8JtQvWQhotxdfM4V3xRSHCRtfpdGo3TalYSHmSsBKtDotksj
+t8M2UYiXYkBBM39Qs2SWSZTk6YI3cHTSydbLjt1/BQz6zj5vYKEufyr+udqoClH9/QxIqbo8yJws
+fm0jA7BXcSwgfZ2akvigNqy8qAXv8cDENvWIemaxpUJ1GrAaxnIaRwFeJJR5+P06yAun/pPtCwZt
+FCv8fUFMA3JXKyPiePQqJj6/druquFoSWJ5qfDbg9A5vdslc1lg91XmtSy4+u7qoK8NL3zpgMeja
+S0oA2U2PuKr2ITKcBvQUePnrNU2IIui15Sx4hA==
+</ds:SignatureValue>
+<ds:KeyInfo Id="Certificate1710555">
+<ds:X509Data>
+<ds:X509Certificate>
+MIIJIzCCBwugAwIBAgIETkcaxTANBgkqhkiG9w0BAQsFADCBoTELMAkGA1UEBhMCRUMxIjAgBgNV
+BAoTGUJBTkNPIENFTlRSQUwgREVMIEVDVUFET1IxNzA1BgNVBAsTLkVOVElEQUQgREUgQ0VSVElG
+SUNBQ0lPTiBERSBJTkZPUk1BQ0lPTi1FQ0lCQ0UxDjAMBgNVBAcTBVFVSVRPMSUwIwYDVQQDExxB
+QyBCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SMB4XDTE2MDkwNzE5MDU0NVoXDTE4MDkwNzE5MzU0
+NVowgbUxCzAJBgNVBAYTAkVDMSIwIAYDVQQKExlCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SMTcw
+NQYDVQQLEy5FTlRJREFEIERFIENFUlRJRklDQUNJT04gREUgSU5GT1JNQUNJT04tRUNJQkNFMQ4w
+DAYDVQQHEwVRVUlUTzE5MBEGA1UEBRMKMDAwMDEzMjAyMTAkBgNVBAMTHUxVSVMgSFVNQkVSVE8g
+VkFTUVVFWiBQQURJTExBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxYTMa3tFgsQT
+OKtVoplT1GN80jnqllDS08UDSyZgJbh+Ksf9Yzc9oEwf2VMOmGMogW+41JYXNslqwmjXyA9UUiN/
+GhQxCDx+24dbXRaoVFcq6x9rAPUrcdc4pmWTsMcDmnkuXjPEJVwyAWeSK22WjqaXasJdQ2aqRcrM
+6cHsYTMVU6A+AMxx5TIc10B6bgHhu0RDNp+YchjOYginuA2cWIicMMI7Ffhkjn2hT5bKSTvrbe6j
+DcwQ57GZK6kKAM0zNFNy9MqGid0HtGJfcNcHKV7leDbkGvck5xCgmu830oVNtPXH+LK+XnFLzAsx
+t6PDn6zaJw0TnWfYXkV1IQIWjwIDAQABo4IESzCCBEcwgZEGCCsGAQUFBwEBBIGEMIGBMD4GCCsG
+AQUFBzABhjJodHRwOi8vb2NzcC5lY2kuYmNlLmVjL2VqYmNhL3B1YmxpY3dlYi9zdGF0dXMvb2Nz
+cDA/BggrBgEFBQcwAYYzaHR0cDovL29jc3AxLmVjaS5iY2UuZWMvZWpiY2EvcHVibGljd2ViL3N0
+YXR1cy9vY3NwMBoGCisGAQQBgqg7AwEEDBMKMDEwMjAwOTc4NDAdBgorBgEEAYKoOwMCBA8TDUxV
+SVMgSFVNQkVSVE8wFwYKKwYBBAGCqDsDAwQJEwdWQVNRVUVaMBcGCisGAQQBgqg7AwQECRMHUEFE
+SUxMQTA7BgorBgEEAYKoOwMHBC0TK1ZJQSBQUklOQ0lQQUwgU04gUEFSUVVFIENFTlRSQUwgREUg
+UklDQVVSVEUwGQYKKwYBBAGCqDsDCAQLEwkwNzI4OTE4MDQwFgYKKwYBBAGCqDsDCQQIEwZDdWVu
+Y2EwFwYKKwYBBAGCqDsDDAQJEwdFQ1VBRE9SMB0GCisGAQQBgqg7AwsEDxMNMDEwMjAwOTc4NDAw
+MTAgBgorBgEEAYKoOwMzBBITEFNPRlRXQVJFLUFSQ0hJVk8wJAYDVR0RBB0wG4EZdmFzcXVlel9k
+aXNlbnNhQHlhaG9vLmNvbTCCAd8GA1UdHwSCAdYwggHSMIIBzqCCAcqgggHGhoHVbGRhcDovL2Jj
+ZXFsZGFwc3VicDEuYmNlLmVjL2NuPUNSTDM1OCxjbj1BQyUyMEJBTkNPJTIwQ0VOVFJBTCUyMERF
+TCUyMEVDVUFET1IsbD1RVUlUTyxvdT1FTlRJREFEJTIwREUlMjBDRVJUSUZJQ0FDSU9OJTIwREUl
+MjBJTkZPUk1BQ0lPTi1FQ0lCQ0Usbz1CQU5DTyUyMENFTlRSQUwlMjBERUwlMjBFQ1VBRE9SLGM9
+RUM/Y2VydGlmaWNhdGVSZXZvY2F0aW9uTGlzdD9iYXNlhjRodHRwOi8vd3d3LmVjaS5iY2UuZWMv
+Q1JML2VjaV9iY2VfZWNfY3JsZmlsZWNvbWIuY3JspIG1MIGyMQswCQYDVQQGEwJFQzEiMCAGA1UE
+ChMZQkFOQ08gQ0VOVFJBTCBERUwgRUNVQURPUjE3MDUGA1UECxMuRU5USURBRCBERSBDRVJUSUZJ
+Q0FDSU9OIERFIElORk9STUFDSU9OLUVDSUJDRTEOMAwGA1UEBxMFUVVJVE8xJTAjBgNVBAMTHEFD
+IEJBTkNPIENFTlRSQUwgREVMIEVDVUFET1IxDzANBgNVBAMTBkNSTDM1ODALBgNVHQ8EBAMCBSAw
+HwYDVR0jBBgwFoAUGPnw++YyHJlmOSrKi7JpfUknv84wHQYDVR0OBBYEFFBI8NF3LEvR7Qf/homT
+sxXv9zzmMAkGA1UdEwQCMAAwGQYJKoZIhvZ9B0EABAwwChsEVjguMQMCBJAwDQYJKoZIhvcNAQEL
+BQADggIBADooWvCZJ8F+/8R0UclKGaY8hFciAEYBn+WFpfTcigkSSE8NF/USmX9XmDtG//ccNrpu
+o0VdaPmkVtECfw7r6w7KhxyMscq2T3qmkk1ZdWThyuxJh3cym6NKZtDsuSfzW6hmVKpqvNDkgfxi
+ROBNKaP/AgV5/92yVy6BpRoAt6bfeLNODAQK4wlJy1dxNlzwEhkBGq1h6c66rVvRgpHMXgGuX//7
+wRqgCbBJ+8nEE8iPjhmZL+fgGAQhvZPkDhmf4C03QOv5yBuNcFa/q/2/g6L8K6bR0sYNB+lmDtCl
+Tfo7+dgzsu7qPPuQ2Lo+THVCaoCt/GFD6vh2z/JgxoQ4R7bIAMwM565uVT11BpvVoF+uHg05Eg2y
+ti8Urml7vHzFZ+G7LrYiF9cSgENGJURIEHgIQfuiLRFGkhEPKgDGnk/NA/JPZHyCtraU9P8F5q3e
+Mxkd4NZijZGSWubJ3K6rWiUikf5t8cQ4R6XbZsaOYSq/cS1BIP/8Jz9+lqu1qCrGcrz2+cXWwcZ3
+btdtI49xDv7WY4j2vjcb2eieeFLQmcGIl/1vFad0FTmlzTRkqETAbdDFOQbvs/kLICkB0J0dqDhF
+/s7BjioqAMVPqDnfUoUiRPRuv7mKcyGTQZn3yYZUREWoNrIWA1TpY5bkqpURBXkBQIcLsoBEdEMk
+60z/KzM2
+</ds:X509Certificate>
+</ds:X509Data>
+<ds:KeyValue>
+<ds:RSAKeyValue>
+<ds:Modulus>
+xYTMa3tFgsQTOKtVoplT1GN80jnqllDS08UDSyZgJbh+Ksf9Yzc9oEwf2VMOmGMogW+41JYXNslq
+wmjXyA9UUiN/GhQxCDx+24dbXRaoVFcq6x9rAPUrcdc4pmWTsMcDmnkuXjPEJVwyAWeSK22WjqaX
+asJdQ2aqRcrM6cHsYTMVU6A+AMxx5TIc10B6bgHhu0RDNp+YchjOYginuA2cWIicMMI7Ffhkjn2h
+T5bKSTvrbe6jDcwQ57GZK6kKAM0zNFNy9MqGid0HtGJfcNcHKV7leDbkGvck5xCgmu830oVNtPXH
++LK+XnFLzAsxt6PDn6zaJw0TnWfYXkV1IQIWjw==
+</ds:Modulus>
+<ds:Exponent>AQAB</ds:Exponent>
+</ds:RSAKeyValue>
+</ds:KeyValue>
+</ds:KeyInfo>
+<ds:Object Id="Signature631834-Object35525"><etsi:QualifyingProperties Target="#Signature631834"><etsi:SignedProperties Id="Signature631834-SignedProperties849046"><etsi:SignedSignatureProperties><etsi:SigningTime>2017-11-15T17:54:31-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>HRaMDEtVmXNK83mYdawKNuWXQcE=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1313282757</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-946475"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>

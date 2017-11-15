@@ -6,6 +6,15 @@ Public Class FirmarXML
     Private strFirmados As String = ""
     Private strArchivoXML As String = ""
     Private strArchivoFirmado As String = ""
+    Private archivo As Archivo
+
+    Sub New(ByVal archivo As Archivo)
+        Me.archivo = archivo
+    End Sub
+
+    Sub New()
+
+    End Sub
 
     Public Property ArchivoP12() As String
         Get
@@ -66,13 +75,24 @@ Public Class FirmarXML
             strGenerados & "\" & strArchivoXML & " " & _
             strFirmados & "\" & strArchivoXML
     End Function
-
+    'metodo para firmar el archivo xml 
     Public Function Firmar() As Boolean
         Shell("C:\IA\EnvioSRI\FirmarXML\FirmarXMLv01 " & establecerParametros(), AppWinStyle.Hide)
         System.Threading.Thread.Sleep(6000)
 
         Try
-            Return System.IO.File.Exists(ArchivoXMLFirmado())
+            'Validar si el archivo  firmado existe para eliminar el archivo  de generados
+            If System.IO.File.Exists(ArchivoXMLFirmado()) Then
+                'eliminar el archivo de  generados
+                archivo.eliminarArchivo(strGenerados & "\" & strArchivoXML)
+                'copiar el archivo en la carpeta de por autorizar
+                My.Computer.FileSystem.CopyFile(ArchivoXMLFirmado(), archivo.CarpetaPorAutorizar & "\" & strArchivoXML)
+                Return (True)
+
+            Else
+                Return False
+            End If
+
         Catch ex As Exception
             Dim er As New Log
             er.NombreFuncion = "FirmarXML"

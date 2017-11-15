@@ -25,7 +25,7 @@ Public Class ConexionBD
         Dim dt As DataTable = New DataTable
 
         sql = "SELECT NombreEmpresa, RUC, ComprobantesGenerados, ComprobantesFirmados, ComprobantesAutorizados, " & _
-              "ComprobantesNoAutorizados, UbicacionArchivoToken, ContrasenaToken, TipoAmbiente, ComprobantesContingencia, ComprobantesEnviados " & _
+              "ComprobantesNoAutorizados, UbicacionArchivoToken, ContrasenaToken, TipoAmbiente, ComprobantesContingencia, ComprobantesEnviados,wsSriPruebasRecepcion,wsSriPruebasAutorizacion,wsSriProduccionRecepcion,wsSriProduccionAutorizacion " & _
               "FROM dbo.GNOpcion"
         Dim comando As SqlCommand = New SqlCommand(sql, ConexionServidorPrincipal)
         Dim adap As SqlDataAdapter = New SqlDataAdapter(comando)
@@ -35,15 +35,20 @@ Public Class ConexionBD
     End Function
 
     Public Function RecuperarConfigServidorCorreo() As DataTable
-        Dim sql As String
-        Dim dt As DataTable = New DataTable
-        sql = "SELECT * FROM gnopcion"
+        Try
+            Dim sql As String
+            Dim dt As DataTable = New DataTable
+            sql = "SELECT * FROM gnopcion"
 
-        Dim comando As SqlCommand = New SqlCommand(sql, ConexionServidorPrincipal)
-        Dim adap As SqlDataAdapter = New SqlDataAdapter(comando)
-        adap.Fill(dt)
+            Dim comando As SqlCommand = New SqlCommand(sql, ConexionServidorPrincipal)
+            Dim adap As SqlDataAdapter = New SqlDataAdapter(comando)
+            adap.Fill(dt)
 
-        Return dt
+            Return dt
+        Catch ex As Exception
+            '//
+        End Try
+        
     End Function
 
     Public Function DatosCliente(ByVal strArchivo As String) As DataTable
@@ -103,7 +108,10 @@ Public Class ConexionBD
     Public Sub GuardarConfiguracionGeneral(ByVal strComprobantesGenerados As String, ByVal strComprobantesFirmados As String, _
                                           ByVal strComprobantesAutorizados As String, ByVal strComprobantesNoAutorizados As String, _
                                           ByVal strUbicacionArchivoToken As String, ByVal strContrasenaToken As String, _
-                                          ByVal strTipoAmbiente As String, ByVal strComprobantesContingencia As String, ByVal strComprobantesEnviado As String)
+                                          ByVal strTipoAmbiente As String, ByVal strComprobantesContingencia As String, _
+                                          ByVal strComprobantesEnviado As String, _
+                                          ByVal strWsRecepcionProduccion As String, ByVal strWsAutorizacionProduccion As String, _
+                                          ByVal strWsRecepcionPruebas As String, ByVal strWsAutorizacionPruebas As String)
         Using Conn As SqlConnection = ConexionServidorPrincipal()
             Conn.Open()
             Using Cmd As SqlCommand = Conn.CreateCommand()
@@ -117,7 +125,11 @@ Public Class ConexionBD
                     "ContrasenaToken = '" & strContrasenaToken & "'," & _
                     "TipoAmbiente = '" & strTipoAmbiente & "'," & _
                     "ComprobantesEnviados = '" & strComprobantesEnviado & "'," & _
-                    "ComprobantesContingencia = '" & strComprobantesContingencia & "'"
+                    "ComprobantesContingencia = '" & strComprobantesContingencia & "'," & _
+                    "wsSriPruebasRecepcion = '" & strWsRecepcionPruebas & "'," & _
+                    "wsSriPruebasAutorizacion = '" & strWsAutorizacionPruebas & "'," & _
+                    "wsSriProduccionRecepcion = '" & strWsRecepcionProduccion & "'," & _
+                    "wsSriProduccionAutorizacion = '" & strWsAutorizacionProduccion & "'"
                 Cmd.ExecuteNonQuery()
             End Using
         End Using

@@ -1,7 +1,7 @@
 ﻿Imports WebServiceSRI
 
 Public Class EnvioSRI
-    Private strArchivoXMLFirmado As String = ""
+    Private strArchivoXMLPorAutorizar As String = ""
     Private strTipoEmision As String = ""
     Private strNumeroAutorizacion As String = ""
     Private strInformacionAdicional As String = ""
@@ -10,12 +10,12 @@ Public Class EnvioSRI
     Private strXMLAutorizado As String = ""
     Private blnUsarProxy As Boolean = False
 
-    Public Property ArchivoXMLFirmado() As String
+    Public Property ArchivoXMLPorAutorizar() As String
         Get
-            Return strArchivoXMLFirmado
+            Return strArchivoXMLPorAutorizar
         End Get
         Set(ByVal value As String)
-            strArchivoXMLFirmado = value
+            strArchivoXMLPorAutorizar = value
         End Set
     End Property
 
@@ -70,16 +70,16 @@ Public Class EnvioSRI
             End If
         End Get
     End Property
-
-    Public Function sendComprobanteSRI() As Byte
-        Dim ws As New WebServiceSRI.WebServiceSRI
+    'Metodo principal para enviar el comprobante al SRI
+    Public Function enviarComprobanteAlSRI(ByVal urlWsRecepcionProd As String, ByVal urlWsAutorizacionProd As String, ByVal urlWsRecepcionPru As String, ByVal urlWsAutoPru As String) As Byte
+        Dim werServiceSRI As New WebServiceSRI.WebServiceSRI(urlWsRecepcionProd, urlWsAutorizacionProd, urlWsRecepcionPru, urlWsAutoPru)
 
         Dim intCorrecto As Byte = 0
         ' intCorrecto = 1 - Autorizado
         ' intCorrecto = 2 - No Autorizado
         ' intCorrecto = 3 - Contingencia
 
-        If strArchivoXMLFirmado = String.Empty Then
+        If strArchivoXMLPorAutorizar = String.Empty Then
             intCorrecto = 0
             Return intCorrecto
         End If
@@ -89,45 +89,50 @@ Public Class EnvioSRI
         '--------------------------------------------------------------------------------------------
         If blnUsarProxy = True Then
             Dim PXY As New UsarProxy
-            ws.UsarProxy(True, PXY.Servidor, PXY.Puerto)
+            werServiceSRI.UsarProxy(True, PXY.Servidor, PXY.Puerto)
         Else
-            ws.UsarProxy(False, "", 0)
+            werServiceSRI.UsarProxy(False, "", 0)
         End If
         '--------------------------------------------------------------------------------------------
 
         Try
-            If ws.sendComprobante(strArchivoXMLFirmado) = True Then
-                If ws.AutorizacionComprobante.IsAutorizado = True Then
-                    Dim at As WebServiceSRI.Autorizacion = ws.AutorizacionComprobante.Autorizacion
-                    strTipoEmision = ws.TipoEmision
+            'Envia el archivo xml al SRI(WS recepcion) y retorno la validacion  si es correcta
+            If werServiceSRI.enviarComprobanteSRIPorNombreArchivo(strArchivoXMLPorAutorizar) = True Then
+                'valida si el comprobante ya tiene la bandera de autorizado
+                If werServiceSRI.AutorizacionComprobante.IsAutorizado = True Then
+                    'toma los datos de autorizacion
+                    Dim at As WebServiceSRI.Autorizacion = werServiceSRI.AutorizacionComprobante.Autorizacion
+                    strTipoEmision = werServiceSRI.TipoEmision
                     strNumeroAutorizacion = at.NumeroAutorizacion
                     dteFechaAutorizacion = at.FechaAutorizacion
                     strCodigoMensaje = "60"
                     strInformacionAdicional = at.Estado
-                    strXMLAutorizado = ws.AutorizacionComprobante.xmlRespuestaSRI
+                    strXMLAutorizado = werServiceSRI.AutorizacionComprobante.xmlRespuestaSRI
+                    'bandera  para validar que esta autorizado
                     intCorrecto = 1
-                ElseIf ws.AutorizacionComprobante.NumeroComprobantes > 0 Then
+                ElseIf werServiceSRI.AutorizacionComprobante.NumeroComprobantes > 0 Then
                     LimpiarDatos()
-                    For Each mensaje As WebServiceSRI.Mensaje In ws.AutorizacionComprobante.Autorizacion.Mensajes
+                    For Each mensaje As WebServiceSRI.Mensaje In werServiceSRI.AutorizacionComprobante.Autorizacion.Mensajes
                         'MsgBox(String.Format("Mensaje Error:{0}", mensaje.Mensaje), MsgBoxStyle.Critical)   
                         strCodigoMensaje = mensaje.Identificador
                         strInformacionAdicional = strInformacionAdicional & ". " & mensaje.Mensaje
-                        strXMLAutorizado = ws.AutorizacionComprobante.xmlRespuestaSRI
+                        strXMLAutorizado = werServiceSRI.AutorizacionComprobante.xmlRespuestaSRI
                         Exit For
                     Next
                     intCorrecto = 2
                 End If
-            ElseIf ws.RecepcionComprobante.NumeroComprobantes > 0 Then
+                'Cuando falla  el Ws de Recepcion por problemas en el archvivo 
+            ElseIf werServiceSRI.RecepcionComprobante.NumeroComprobantes > 0 Then
                 LimpiarDatos()
-                For Each mensaje As WebServiceSRI.Mensaje In ws.RecepcionComprobante.Comprobante.Mensajes
-                    strTipoEmision = ws.TipoEmision
+                For Each mensaje As WebServiceSRI.Mensaje In werServiceSRI.RecepcionComprobante.Comprobante.Mensajes
+                    strTipoEmision = werServiceSRI.TipoEmision
                     strCodigoMensaje = mensaje.Identificador
                     strInformacionAdicional = strInformacionAdicional & "." & mensaje.InformacionAdicional & ". " & mensaje.Mensaje
-                    strXMLAutorizado = ws.AutorizacionComprobante.xmlRespuestaSRI
+                    strXMLAutorizado = werServiceSRI.AutorizacionComprobante.xmlRespuestaSRI
                     'Exit For
                 Next
                 intCorrecto = 2
-            ElseIf ws.IsOnLine = False Then
+            ElseIf werServiceSRI.IsOnLine = False Then
                 LimpiarDatos()
                 'MsgBox("No hay conexion a los webservice del SRI", MsgBoxStyle.Exclamation)
                 strInformacionAdicional = "No hay conexion a los webservice del SRI"
@@ -141,7 +146,7 @@ Public Class EnvioSRI
             intCorrecto = 3
         End Try
         '--------------------------------------------------------------------------------------------
-        ws = Nothing
+        werServiceSRI = Nothing
         Return intCorrecto
     End Function
 

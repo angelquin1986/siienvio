@@ -12,7 +12,7 @@ Public Class WebServiceSRI
     Private autorizacionValue As AutorizacionComprobante = Nothing
     Private tipoAmbienteValue As Integer
     Private tipoEmisionValue As Integer
-    Private tipoEmisionSoapValue As Integer = 1
+    'Private tipoEmisionSoapValue As Integer = 1
     Private claveAccesoValue As String = String.Empty
     Private isOnLineValue As Boolean
     '------ Proxy ------
@@ -31,8 +31,8 @@ Public Class WebServiceSRI
 
 #Region "CONSTRUCTOR"
 
-    Sub New()
-        loadWebSericeSRI()
+    Sub New(ByVal urlWsRecepcionProd As String, ByVal urlWsAutorizacionProd As String, ByVal urlWsRecepcionPru As String, ByVal urlWsAutoPru As String)
+        loadWebSericeSRI(urlWsRecepcionProd, urlWsAutorizacionProd, urlWsRecepcionPru, urlWsAutoPru)
     End Sub
 
 #End Region
@@ -87,11 +87,11 @@ Public Class WebServiceSRI
         End Get
     End Property
 
-    Public ReadOnly Property TipoEmisionSoap() As Integer
-        Get
-            Return tipoEmisionSoapValue
-        End Get
-    End Property
+    'Public ReadOnly Property TipoEmisionSoap() As Integer
+    '    Get
+    '        Return tipoEmisionSoapValue
+    '    End Get
+    'End Property
 
     Public ReadOnly Property IsOnLine() As Boolean
         Get
@@ -180,96 +180,125 @@ Public Class WebServiceSRI
 #End Region
 
 #Region "SEND COMPROBANTE"
-
-    Public Function sendComprobante(ByVal fileName As String) As Boolean
+    'Metodo para enviar el comprobante al SRI, cosume los ws de recepcion y autorizacion
+    Public Function enviarComprobanteSRIPorNombreArchivo(ByVal fileName As String) As Boolean
+        'toma el  archivo generado y que ya esta firmado
         Dim xmlString As String = getOuterXML(fileName)
         Dim retVal As Boolean
-        '--------------------------------------------------------------------------------------------------------
+        'validar que el archivo no este vacio
         If xmlString <> String.Empty Then
-            '----------------------------------------------------------------------------------------------------
             'VERIFICO QUE EXISTA CONEXION A INTERNET
-            '----------------------------------------------------------------------------------------------------
             If My.Computer.Network.IsAvailable = True Then
                 resetVariables()
-                '------------------------------------------------------------------------------------------------
-                'LEO LOS DATOS IMPORTANTES DEL ARCHIVO XML
-                '------------------------------------------------------------------------------------------------
+                'LLOS DATOS IMPORTANTES DEL ARCHIVO XML
                 readElements(xmlString)
-                '------------------------------------------------------------------------------------------------
-                retVal = processSendComprobante(Metodos.ToBase64String(xmlString))
+                retVal = enviarComprobanteSRIOffLine(Metodos.ToBase64String(xmlString))
             End If
         End If
-        '--------------------------------------------------------------------------------------------------------
-        sendComprobante = retVal
+        enviarComprobanteSRIPorNombreArchivo = retVal
     End Function
 
 #End Region
 
 #Region "PROCESS SEND COMPROBANTE"
-
-    Private Function ProcessRecepcionComprobante(ByVal VALUE As String, Optional ByVal ENVIO As EnvioType = EnvioType.NORMAL) As RecepcionComprobante
-        ProcessRecepcionComprobante = New RecepcionComprobante(executeWebServiceCLIENT(VALUE, AcctionType.RECEPCION, ENVIO))
+    'Metodo para ejecutar el ws de recepcion del SRI
+    Private Function enviarRecepcionComprobante(ByVal VALUE As String, Optional ByVal ENVIO As EnvioType = EnvioType.NORMAL) As RecepcionComprobante
+        enviarRecepcionComprobante = New RecepcionComprobante(executeWebServiceCLIENT(VALUE, AcctionType.RECEPCION, ENVIO))
     End Function
-
-    Private Function ProcessAutorizacionComprobante(ByVal VALUE As String, Optional ByVal ENVIO As EnvioType = EnvioType.NORMAL) As AutorizacionComprobante
-        ProcessAutorizacionComprobante = New AutorizacionComprobante(executeWebServiceCLIENT(VALUE, AcctionType.AUTORIZACION, ENVIO))
+    'Metodo para ejecutar el ws de autorizacion  del SRI
+    Private Function enviarAutorizacionComprobante(ByVal VALUE As String, Optional ByVal ENVIO As EnvioType = EnvioType.NORMAL) As AutorizacionComprobante
+        enviarAutorizacionComprobante = New AutorizacionComprobante(executeWebServiceCLIENT(VALUE, AcctionType.AUTORIZACION, ENVIO))
     End Function
-
-    Private Function processSendComprobante(ByVal VALUE As String, Optional ByVal ENVIO As EnvioType = EnvioType.NORMAL) As Boolean
+    'Metodo que  utiliza el ws del SRI de recepcion para  enviar el xml
+    <Obsolete("Deprecado ,  utilizar el metodo Offline")>
+    Private Function enviarComprobanteSRI(ByVal VALUE As String, Optional ByVal ENVIO As EnvioType = EnvioType.NORMAL) As Boolean
         Dim retVal As Boolean
         '--------------------------------------------------------------------------------------------------
         isOnLineValue = False
-        tipoEmisionSoapValue = 0
+        ''tipoEmisionSoapValue = 0
         '--------------------------------------------------------------------------------------------------
         recepcionValue = New RecepcionComprobante
         'autorizacionValue = New AutorizacionComprobante
         '--------------------------------------------------------------------------------------------------
         'verifico sino ha sido autorizado anteriormente o esta pendiente de autorizar
         '--------------------------------------------------------------------------------------------------
-        autorizacionValue = ProcessAutorizacionComprobante(claveAccesoValue, ENVIO)
+        autorizacionValue = enviarAutorizacionComprobante(claveAccesoValue, ENVIO)
         '--------------------------------------------------------------------------------------------------
         'verifico si hubo conexion con los webservices del sri
         '--------------------------------------------------------------------------------------------------
         If autorizacionValue.SoapString <> String.Empty Then
             isOnLineValue = True
-            '----------------------------------------------------------------------------------------------
+            'Solo si el comprobante ya no esta autorizado--------------------------------------------------
             If autorizacionValue.IsAutorizado = False Then
                 '------------------------------------------------------------------------------------------
                 'verifico si esta pendiente de Autorizar
                 '------------------------------------------------------------------------------------------
                 If autorizacionValue.IsPendiente = False Then
-                    recepcionValue = ProcessRecepcionComprobante(VALUE, ENVIO)
-                    '--------------------------------------------------------------------------------------
+                    recepcionValue = enviarRecepcionComprobante(VALUE, ENVIO)
                     If recepcionValue.SoapString <> String.Empty Then
                         If recepcionValue.IsRecibida = True Then
-                            autorizacionValue = ProcessAutorizacionComprobante(claveAccesoValue, ENVIO)
+                            autorizacionValue = enviarAutorizacionComprobante(claveAccesoValue, ENVIO)
                             '------------------------------------------------------------------------------
                             If autorizacionValue.NumeroComprobantes <= 0 Then
-                                autorizacionValue = ProcessAutorizacionComprobante(claveAccesoValue, ENVIO)
+                                autorizacionValue = enviarAutorizacionComprobante(claveAccesoValue, ENVIO)
                             End If
                             '------------------------------------------------------------------------------
                             If autorizacionValue.SoapString = String.Empty Then
-                                tipoEmisionSoapValue = 2
+                                ''tipoEmisionSoapValue = 2
                             End If
                             '------------------------------------------------------------------------------
                             retVal = True
                         End If
                     Else
-                        tipoEmisionSoapValue = 2
+                        ''tipoEmisionSoapValue = 2
                     End If
                 End If
             Else
                 retVal = True
             End If
         Else
-            tipoEmisionSoapValue = 2
+            ''tipoEmisionSoapValue = 2
         End If
         '---------------------------------------------------------------------------------------------------
-        If tipoEmisionSoapValue = 0 Then
-            tipoEmisionSoapValue = tipoEmisionValue
-        End If
+        ''If tipoEmisionSoapValue = 0 Then
+        ''    tipoEmisionSoapValue = tipoEmisionValue
+        ''End If
         '---------------------------------------------------------------------------------------------------
-        processSendComprobante = retVal
+        enviarComprobanteSRI = retVal
+    End Function
+    '@autor aquingaluisa
+    'Metodo que  utiliza el ws del SRI de recepcion para  enviar el xml
+    Private Function enviarComprobanteSRIOffLine(ByVal VALUE As String, Optional ByVal ENVIO As EnvioType = EnvioType.NORMAL) As Boolean
+        Dim retVal As Boolean
+        '--------------------------------------------------------------------------------------------------
+        isOnLineValue = False
+        recepcionValue = New RecepcionComprobante
+        'verifico sino ha sido autorizado anteriormente o esta pendiente de autorizar
+        autorizacionValue = enviarAutorizacionComprobante(claveAccesoValue, ENVIO)
+        'verifico si hubo conexion con los webservices del sri
+        If autorizacionValue.SoapString <> String.Empty Then
+            isOnLineValue = True
+            'Solo si el comprobante ya no esta autorizado--------------------------------------------------
+            If autorizacionValue.IsAutorizado = False Then
+                'verifico si esta pendiente de Autorizar
+                If autorizacionValue.IsPendiente = False Then
+                    recepcionValue = enviarRecepcionComprobante(VALUE, ENVIO)
+                    If recepcionValue.SoapString <> String.Empty Then
+                        If recepcionValue.IsRecibida = True Then
+                            autorizacionValue = enviarAutorizacionComprobante(claveAccesoValue, ENVIO)
+
+                            If autorizacionValue.NumeroComprobantes <= 0 Then
+                                autorizacionValue = enviarAutorizacionComprobante(claveAccesoValue, ENVIO)
+                            End If
+                            retVal = True
+                        End If
+                    End If
+                End If
+            Else
+                retVal = True
+            End If
+        End If
+        enviarComprobanteSRIOffLine = retVal
     End Function
 
 #End Region
@@ -351,7 +380,7 @@ Public Class WebServiceSRI
         '--------------------------------------------------------------------------------------------------
         x = Nothing
     End Sub
-
+    'Leer los nodos del xml
     Private Sub readElements(ByVal node As XmlNode)
         For Each nodeChild As XmlNode In node.ChildNodes
             If nodeChild.NodeType <> XmlNodeType.Text Then
@@ -372,16 +401,16 @@ Public Class WebServiceSRI
         Next
     End Sub
 
-    Private Sub loadWebSericeSRI()
+    Private Sub loadWebSericeSRI(ByVal urlWsRecepcionProd As String, ByVal urlWsAutorizacionProd As String, ByVal urlWsRecepcionPru As String, ByVal urlWsAutorizacionPru As String)
         Dim wsAutValue As New Dictionary(Of Integer, String)
         Dim wsRecValue As New Dictionary(Of Integer, String)
         '--------------------------------------------------------------------------
         If wsAutorizacionValue.Count <= 0 Or wsRecepcionValue.Count <= 0 Then
-            wsAutValue.Add(1, "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantes?wsdl")
-            wsRecValue.Add(1, "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantes?wsdl")
+            wsAutValue.Add(1, urlWsAutorizacionPru)
+            wsRecValue.Add(1, urlWsRecepcionPru)
             '----------------------------------------------------------------------
-            wsAutValue.Add(2, "https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantes?wsdl")
-            wsRecValue.Add(2, "https://cel.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantes?wsdl")
+            wsAutValue.Add(2, urlWsAutorizacionProd)
+            wsRecValue.Add(2, urlWsRecepcionProd)
             '----------------------------------------------------------------------
             wsAutorizacionValue = wsAutValue
             wsRecepcionValue = wsRecValue

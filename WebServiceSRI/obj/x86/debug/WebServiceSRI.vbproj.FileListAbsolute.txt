@@ -16,3 +16,11 @@ C:\Users\ASERVER-PC\Desktop\fuentes siienvio\WebServiceSRI\obj\x86\Debug\WebServ
 C:\Users\ASERVER-PC\Desktop\fuentes siienvio\WebServiceSRI\obj\x86\Debug\WebServiceSRI.dll
 C:\Users\ASERVER-PC\Desktop\fuentes siienvio\WebServiceSRI\obj\x86\Debug\WebServiceSRI.xml
 C:\Users\ASERVER-PC\Desktop\fuentes siienvio\WebServiceSRI\obj\x86\Debug\WebServiceSRI.pdb
+D:\EAP\des\siienvia\WebServiceSRI\bin\Debug\WebServiceSRI.dll
+D:\EAP\des\siienvia\WebServiceSRI\bin\Debug\WebServiceSRI.pdb
+D:\EAP\des\siienvia\WebServiceSRI\bin\Debug\WebServiceSRI.xml
+D:\EAP\des\siienvia\WebServiceSRI\obj\x86\Debug\WebServiceSRI.Resources.resources
+D:\EAP\des\siienvia\WebServiceSRI\obj\x86\Debug\WebServiceSRI.vbproj.GenerateResource.Cache
+D:\EAP\des\siienvia\WebServiceSRI\obj\x86\Debug\WebServiceSRI.dll
+D:\EAP\des\siienvia\WebServiceSRI\obj\x86\Debug\WebServiceSRI.xml
+D:\EAP\des\siienvia\WebServiceSRI\obj\x86\Debug\WebServiceSRI.pdb

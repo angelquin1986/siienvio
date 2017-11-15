@@ -62,7 +62,6 @@ Partial Class Administracion
         Me.btnExaminar06 = New System.Windows.Forms.Button()
         Me.txtClaveContingencia = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
-        Me.lstListaComprobantes = New System.Windows.Forms.ListView()
         Me.tabServidorCorreo = New System.Windows.Forms.TabPage()
         Me.txtUsuarioCorreo = New System.Windows.Forms.TextBox()
         Me.Label30 = New System.Windows.Forms.Label()
@@ -118,11 +117,24 @@ Partial Class Administracion
         Me.txtDireccionProxy = New System.Windows.Forms.TextBox()
         Me.Label26 = New System.Windows.Forms.Label()
         Me.chkUtilizarProxy = New System.Windows.Forms.CheckBox()
+        Me.tblWebService = New System.Windows.Forms.TabPage()
+        Me.txtUrlRecepcionPruebas = New System.Windows.Forms.TextBox()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.txtUrlAutorizacionPruebas = New System.Windows.Forms.TextBox()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.txtUrlRecepcionProduccion = New System.Windows.Forms.TextBox()
+        Me.txtUrlAutorizacionProduccion = New System.Windows.Forms.TextBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.Label32 = New System.Windows.Forms.Label()
         Me.btnGuardar = New System.Windows.Forms.Button()
         Me.tmrActualizaLista = New System.Windows.Forms.Timer(Me.components)
         Me.btnSalir = New System.Windows.Forms.Button()
         Me.btnFirmarEnviar = New System.Windows.Forms.Button()
         Me.ntfAreaNotificacion = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.btnPruebaTimer = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.txtComprobantesPorAutorizar = New System.Windows.Forms.TextBox()
+        Me.Label36 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.tabDirectorios.SuspendLayout()
         Me.TabAutFirma.SuspendLayout()
@@ -138,6 +150,7 @@ Partial Class Administracion
         CType(Me.nudNumActualiza, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tblWebService.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -150,11 +163,14 @@ Partial Class Administracion
         Me.TabControl1.Location = New System.Drawing.Point(6, 9)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(664, 233)
+        Me.TabControl1.Size = New System.Drawing.Size(664, 252)
         Me.TabControl1.TabIndex = 0
         '
         'tabDirectorios
         '
+        Me.tabDirectorios.Controls.Add(Me.Button1)
+        Me.tabDirectorios.Controls.Add(Me.txtComprobantesPorAutorizar)
+        Me.tabDirectorios.Controls.Add(Me.Label36)
         Me.tabDirectorios.Controls.Add(Me.btnExaminar08)
         Me.tabDirectorios.Controls.Add(Me.txtComprobantesEnviados)
         Me.tabDirectorios.Controls.Add(Me.Label31)
@@ -176,7 +192,7 @@ Partial Class Administracion
         Me.tabDirectorios.Location = New System.Drawing.Point(4, 22)
         Me.tabDirectorios.Name = "tabDirectorios"
         Me.tabDirectorios.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabDirectorios.Size = New System.Drawing.Size(656, 207)
+        Me.tabDirectorios.Size = New System.Drawing.Size(656, 226)
         Me.tabDirectorios.TabIndex = 0
         Me.tabDirectorios.Text = "Configurar Directorios"
         Me.tabDirectorios.UseVisualStyleBackColor = True
@@ -184,7 +200,7 @@ Partial Class Administracion
         'btnExaminar08
         '
         Me.btnExaminar08.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnExaminar08.Location = New System.Drawing.Point(560, 164)
+        Me.btnExaminar08.Location = New System.Drawing.Point(560, 191)
         Me.btnExaminar08.Name = "btnExaminar08"
         Me.btnExaminar08.Size = New System.Drawing.Size(29, 21)
         Me.btnExaminar08.TabIndex = 17
@@ -193,7 +209,7 @@ Partial Class Administracion
         '
         'txtComprobantesEnviados
         '
-        Me.txtComprobantesEnviados.Location = New System.Drawing.Point(178, 165)
+        Me.txtComprobantesEnviados.Location = New System.Drawing.Point(178, 192)
         Me.txtComprobantesEnviados.Name = "txtComprobantesEnviados"
         Me.txtComprobantesEnviados.Size = New System.Drawing.Size(376, 20)
         Me.txtComprobantesEnviados.TabIndex = 16
@@ -202,7 +218,7 @@ Partial Class Administracion
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(14, 168)
+        Me.Label31.Location = New System.Drawing.Point(14, 195)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(122, 13)
         Me.Label31.TabIndex = 15
@@ -211,7 +227,7 @@ Partial Class Administracion
         'btnExaminar07
         '
         Me.btnExaminar07.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnExaminar07.Location = New System.Drawing.Point(560, 135)
+        Me.btnExaminar07.Location = New System.Drawing.Point(560, 162)
         Me.btnExaminar07.Name = "btnExaminar07"
         Me.btnExaminar07.Size = New System.Drawing.Size(29, 21)
         Me.btnExaminar07.TabIndex = 14
@@ -220,7 +236,7 @@ Partial Class Administracion
         '
         'txtcomprobantesContingencia
         '
-        Me.txtcomprobantesContingencia.Location = New System.Drawing.Point(178, 136)
+        Me.txtcomprobantesContingencia.Location = New System.Drawing.Point(178, 163)
         Me.txtcomprobantesContingencia.Name = "txtcomprobantesContingencia"
         Me.txtcomprobantesContingencia.Size = New System.Drawing.Size(376, 20)
         Me.txtcomprobantesContingencia.TabIndex = 13
@@ -229,7 +245,7 @@ Partial Class Administracion
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(14, 139)
+        Me.Label17.Location = New System.Drawing.Point(14, 166)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(140, 13)
         Me.Label17.TabIndex = 12
@@ -238,7 +254,7 @@ Partial Class Administracion
         'btnExaminar04
         '
         Me.btnExaminar04.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnExaminar04.Location = New System.Drawing.Point(560, 105)
+        Me.btnExaminar04.Location = New System.Drawing.Point(560, 132)
         Me.btnExaminar04.Name = "btnExaminar04"
         Me.btnExaminar04.Size = New System.Drawing.Size(29, 21)
         Me.btnExaminar04.TabIndex = 11
@@ -248,7 +264,7 @@ Partial Class Administracion
         'btnExaminar03
         '
         Me.btnExaminar03.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnExaminar03.Location = New System.Drawing.Point(560, 75)
+        Me.btnExaminar03.Location = New System.Drawing.Point(560, 102)
         Me.btnExaminar03.Name = "btnExaminar03"
         Me.btnExaminar03.Size = New System.Drawing.Size(29, 21)
         Me.btnExaminar03.TabIndex = 10
@@ -277,7 +293,7 @@ Partial Class Administracion
         '
         'txtComprobantesNoautorizados
         '
-        Me.txtComprobantesNoautorizados.Location = New System.Drawing.Point(178, 106)
+        Me.txtComprobantesNoautorizados.Location = New System.Drawing.Point(178, 133)
         Me.txtComprobantesNoautorizados.Name = "txtComprobantesNoautorizados"
         Me.txtComprobantesNoautorizados.Size = New System.Drawing.Size(376, 20)
         Me.txtComprobantesNoautorizados.TabIndex = 7
@@ -286,7 +302,7 @@ Partial Class Administracion
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(14, 109)
+        Me.Label4.Location = New System.Drawing.Point(14, 136)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(150, 13)
         Me.Label4.TabIndex = 6
@@ -294,7 +310,7 @@ Partial Class Administracion
         '
         'txtComprobantesAutorizados
         '
-        Me.txtComprobantesAutorizados.Location = New System.Drawing.Point(178, 76)
+        Me.txtComprobantesAutorizados.Location = New System.Drawing.Point(178, 103)
         Me.txtComprobantesAutorizados.Name = "txtComprobantesAutorizados"
         Me.txtComprobantesAutorizados.Size = New System.Drawing.Size(376, 20)
         Me.txtComprobantesAutorizados.TabIndex = 5
@@ -303,7 +319,7 @@ Partial Class Administracion
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(14, 79)
+        Me.Label3.Location = New System.Drawing.Point(14, 106)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(133, 13)
         Me.Label3.TabIndex = 4
@@ -457,7 +473,6 @@ Partial Class Administracion
         Me.TabCompFirmados.Controls.Add(Me.btnExaminar06)
         Me.TabCompFirmados.Controls.Add(Me.txtClaveContingencia)
         Me.TabCompFirmados.Controls.Add(Me.Label16)
-        Me.TabCompFirmados.Controls.Add(Me.lstListaComprobantes)
         Me.TabCompFirmados.Location = New System.Drawing.Point(4, 22)
         Me.TabCompFirmados.Name = "TabCompFirmados"
         Me.TabCompFirmados.Size = New System.Drawing.Size(656, 207)
@@ -527,15 +542,6 @@ Partial Class Administracion
         Me.Label16.Size = New System.Drawing.Size(104, 13)
         Me.Label16.TabIndex = 10
         Me.Label16.Text = "Claves Contingencia"
-        '
-        'lstListaComprobantes
-        '
-        Me.lstListaComprobantes.Location = New System.Drawing.Point(622, 0)
-        Me.lstListaComprobantes.Name = "lstListaComprobantes"
-        Me.lstListaComprobantes.Size = New System.Drawing.Size(34, 34)
-        Me.lstListaComprobantes.TabIndex = 0
-        Me.lstListaComprobantes.UseCompatibleStateImageBehavior = False
-        Me.lstListaComprobantes.Visible = False
         '
         'tabServidorCorreo
         '
@@ -724,7 +730,8 @@ Partial Class Administracion
         Me.TabControl2.Controls.Add(Me.tbpBDPrincipal)
         Me.TabControl2.Controls.Add(Me.tbpBDSecundaria)
         Me.TabControl2.Controls.Add(Me.tbpOpcionesAvanzadas)
-        Me.TabControl2.Location = New System.Drawing.Point(13, 10)
+        Me.TabControl2.Controls.Add(Me.tblWebService)
+        Me.TabControl2.Location = New System.Drawing.Point(9, 3)
         Me.TabControl2.Name = "TabControl2"
         Me.TabControl2.SelectedIndex = 0
         Me.TabControl2.Size = New System.Drawing.Size(625, 180)
@@ -1072,9 +1079,90 @@ Partial Class Administracion
         Me.chkUtilizarProxy.Text = "Utilizar servidor proxy"
         Me.chkUtilizarProxy.UseVisualStyleBackColor = True
         '
+        'tblWebService
+        '
+        Me.tblWebService.Controls.Add(Me.txtUrlRecepcionPruebas)
+        Me.tblWebService.Controls.Add(Me.Label35)
+        Me.tblWebService.Controls.Add(Me.txtUrlAutorizacionPruebas)
+        Me.tblWebService.Controls.Add(Me.Label34)
+        Me.tblWebService.Controls.Add(Me.txtUrlRecepcionProduccion)
+        Me.tblWebService.Controls.Add(Me.txtUrlAutorizacionProduccion)
+        Me.tblWebService.Controls.Add(Me.Label33)
+        Me.tblWebService.Controls.Add(Me.Label32)
+        Me.tblWebService.Location = New System.Drawing.Point(4, 22)
+        Me.tblWebService.Name = "tblWebService"
+        Me.tblWebService.Size = New System.Drawing.Size(617, 154)
+        Me.tblWebService.TabIndex = 3
+        Me.tblWebService.Text = "Web Service"
+        Me.tblWebService.UseVisualStyleBackColor = True
+        '
+        'txtUrlRecepcionPruebas
+        '
+        Me.txtUrlRecepcionPruebas.Location = New System.Drawing.Point(173, 111)
+        Me.txtUrlRecepcionPruebas.Name = "txtUrlRecepcionPruebas"
+        Me.txtUrlRecepcionPruebas.Size = New System.Drawing.Size(438, 20)
+        Me.txtUrlRecepcionPruebas.TabIndex = 7
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.Location = New System.Drawing.Point(17, 114)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(129, 13)
+        Me.Label35.TabIndex = 6
+        Me.Label35.Text = "URL Recepción Pruebas:"
+        '
+        'txtUrlAutorizacionPruebas
+        '
+        Me.txtUrlAutorizacionPruebas.Location = New System.Drawing.Point(173, 81)
+        Me.txtUrlAutorizacionPruebas.Name = "txtUrlAutorizacionPruebas"
+        Me.txtUrlAutorizacionPruebas.Size = New System.Drawing.Size(438, 20)
+        Me.txtUrlAutorizacionPruebas.TabIndex = 5
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(17, 88)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(135, 13)
+        Me.Label34.TabIndex = 4
+        Me.Label34.Text = "URL Autorización Pruebas:"
+        '
+        'txtUrlRecepcionProduccion
+        '
+        Me.txtUrlRecepcionProduccion.Location = New System.Drawing.Point(173, 41)
+        Me.txtUrlRecepcionProduccion.Name = "txtUrlRecepcionProduccion"
+        Me.txtUrlRecepcionProduccion.Size = New System.Drawing.Size(438, 20)
+        Me.txtUrlRecepcionProduccion.TabIndex = 3
+        '
+        'txtUrlAutorizacionProduccion
+        '
+        Me.txtUrlAutorizacionProduccion.Location = New System.Drawing.Point(173, 10)
+        Me.txtUrlAutorizacionProduccion.Name = "txtUrlAutorizacionProduccion"
+        Me.txtUrlAutorizacionProduccion.Size = New System.Drawing.Size(438, 20)
+        Me.txtUrlAutorizacionProduccion.TabIndex = 2
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(17, 44)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(144, 13)
+        Me.Label33.TabIndex = 1
+        Me.Label33.Text = "URL Recepcion Producción:"
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(17, 17)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(150, 13)
+        Me.Label32.TabIndex = 0
+        Me.Label32.Text = "URL Autorización Producción:"
+        '
         'btnGuardar
         '
-        Me.btnGuardar.Location = New System.Drawing.Point(19, 252)
+        Me.btnGuardar.Location = New System.Drawing.Point(19, 271)
         Me.btnGuardar.Name = "btnGuardar"
         Me.btnGuardar.Size = New System.Drawing.Size(125, 25)
         Me.btnGuardar.TabIndex = 12
@@ -1086,7 +1174,7 @@ Partial Class Administracion
         '
         'btnSalir
         '
-        Me.btnSalir.Location = New System.Drawing.Point(159, 252)
+        Me.btnSalir.Location = New System.Drawing.Point(159, 271)
         Me.btnSalir.Name = "btnSalir"
         Me.btnSalir.Size = New System.Drawing.Size(125, 25)
         Me.btnSalir.TabIndex = 13
@@ -1095,7 +1183,7 @@ Partial Class Administracion
         '
         'btnFirmarEnviar
         '
-        Me.btnFirmarEnviar.Location = New System.Drawing.Point(300, 252)
+        Me.btnFirmarEnviar.Location = New System.Drawing.Point(300, 271)
         Me.btnFirmarEnviar.Name = "btnFirmarEnviar"
         Me.btnFirmarEnviar.Size = New System.Drawing.Size(125, 25)
         Me.btnFirmarEnviar.TabIndex = 14
@@ -1107,11 +1195,48 @@ Partial Class Administracion
         Me.ntfAreaNotificacion.Text = "NotifyIcon1"
         Me.ntfAreaNotificacion.Visible = True
         '
+        'btnPruebaTimer
+        '
+        Me.btnPruebaTimer.Location = New System.Drawing.Point(445, 271)
+        Me.btnPruebaTimer.Name = "btnPruebaTimer"
+        Me.btnPruebaTimer.Size = New System.Drawing.Size(75, 23)
+        Me.btnPruebaTimer.TabIndex = 15
+        Me.btnPruebaTimer.Text = "PruebaTimer"
+        Me.btnPruebaTimer.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(560, 76)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(29, 21)
+        Me.Button1.TabIndex = 20
+        Me.Button1.Text = "..."
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'txtComprobantesPorAutorizar
+        '
+        Me.txtComprobantesPorAutorizar.Location = New System.Drawing.Point(178, 77)
+        Me.txtComprobantesPorAutorizar.Name = "txtComprobantesPorAutorizar"
+        Me.txtComprobantesPorAutorizar.Size = New System.Drawing.Size(376, 20)
+        Me.txtComprobantesPorAutorizar.TabIndex = 19
+        Me.txtComprobantesPorAutorizar.Text = "C:\ia\ComprobantesElectronicos\Por Autorizar"
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.Location = New System.Drawing.Point(14, 80)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(138, 13)
+        Me.Label36.TabIndex = 18
+        Me.Label36.Text = "Comprobantes Por Autorizar"
+        '
         'Administracion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(673, 291)
+        Me.ClientSize = New System.Drawing.Size(685, 311)
+        Me.Controls.Add(Me.btnPruebaTimer)
         Me.Controls.Add(Me.btnFirmarEnviar)
         Me.Controls.Add(Me.btnSalir)
         Me.Controls.Add(Me.btnGuardar)
@@ -1120,7 +1245,7 @@ Partial Class Administracion
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "Administracion"
-        Me.Text = "Ishida & Asociados :: Firmar y Enviar SRI"
+        Me.Text = "Ishida & Asociados :: Firmar y Enviar SRI 2.0"
         Me.TabControl1.ResumeLayout(False)
         Me.tabDirectorios.ResumeLayout(False)
         Me.tabDirectorios.PerformLayout()
@@ -1144,6 +1269,8 @@ Partial Class Administracion
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tblWebService.ResumeLayout(False)
+        Me.tblWebService.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1171,7 +1298,6 @@ Partial Class Administracion
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents btnGuardar As System.Windows.Forms.Button
     Friend WithEvents TabCompFirmados As System.Windows.Forms.TabPage
-    Friend WithEvents lstListaComprobantes As System.Windows.Forms.ListView
     Friend WithEvents tmrActualizaLista As System.Windows.Forms.Timer
     Friend WithEvents tabServidorCorreo As System.Windows.Forms.TabPage
     Friend WithEvents optTipoAmbienteProduccion As System.Windows.Forms.RadioButton
@@ -1246,4 +1372,17 @@ Partial Class Administracion
     Friend WithEvents btnExaminar08 As System.Windows.Forms.Button
     Friend WithEvents txtComprobantesEnviados As System.Windows.Forms.TextBox
     Friend WithEvents Label31 As System.Windows.Forms.Label
+    Friend WithEvents btnPruebaTimer As System.Windows.Forms.Button
+    Friend WithEvents tblWebService As System.Windows.Forms.TabPage
+    Friend WithEvents txtUrlRecepcionProduccion As System.Windows.Forms.TextBox
+    Friend WithEvents txtUrlAutorizacionProduccion As System.Windows.Forms.TextBox
+    Friend WithEvents Label33 As System.Windows.Forms.Label
+    Friend WithEvents Label32 As System.Windows.Forms.Label
+    Friend WithEvents txtUrlRecepcionPruebas As System.Windows.Forms.TextBox
+    Friend WithEvents Label35 As System.Windows.Forms.Label
+    Friend WithEvents txtUrlAutorizacionPruebas As System.Windows.Forms.TextBox
+    Friend WithEvents Label34 As System.Windows.Forms.Label
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents txtComprobantesPorAutorizar As System.Windows.Forms.TextBox
+    Friend WithEvents Label36 As System.Windows.Forms.Label
 End Class
