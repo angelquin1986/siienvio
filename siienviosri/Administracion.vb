@@ -26,16 +26,27 @@ Public Class Administracion
 
 
     Private Sub Administracion_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        blnContingencia = False
-        CargarConfiguracionServidorCorreo()
-        CargarConfiguracion()
-        'configurarListView()
-        cargaListaComprobantesGenerados()
+        'ocultar los elementos ya no utiles
+        Me.TabControl1.TabPages.Remove(Me.TabCompFirmados)
+        Me.TabControl2.TabPages.Remove(Me.tbpBDSecundaria)
+        Try
+            'Dim Decodificar As New CodificarBase64("fuentes\ia2012,nitro2015,sa,Rtl8139c", "")
+            'Dim txtCodificado = Decodificar.StringToBase64()
 
-        If chkIniciarAplicacion.Checked = True Then
-            Me.btnFirmarEnviar_Click(sender, e)
-            Me.WindowState = FormWindowState.Minimized
-        End If
+            blnContingencia = False
+            CargarConfiguracionServidorCorreo()
+            CargarConfiguracion()
+            'configurarListView()
+            cargaListaComprobantesGenerados()
+
+            If chkIniciarAplicacion.Checked = True Then
+                Me.btnFirmarEnviar_Click(sender, e)
+                Me.WindowState = FormWindowState.Minimized
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error al iniciar SiiEnvia",
+                           MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
 
     End Sub
 
@@ -75,23 +86,24 @@ Public Class Administracion
                     'toma el path del archivo firmado que  nos retorna del objeto  FirmarXML
                     SRI.ArchivoXMLPorAutorizar = Firma.ArchivoXMLFirmado
                     SRI.Proxy = chkUtilizarProxy.Checked
-                    Select Case SRI.enviarComprobanteAlSRI(txtUrlRecepcionProduccion.Text, txtUrlAutorizacionProduccion.Text, txtUrlRecepcionPruebas.Text, txtUrlAutorizacionPruebas.Text)
-                        Case 1
+                    Dim respuesta As Dictionary(Of String, String) = SRI.enviarComprobanteAlSRI(txtUrlRecepcionProduccion.Text, txtUrlAutorizacionProduccion.Text, txtUrlRecepcionPruebas.Text, txtUrlAutorizacionPruebas.Text)
+                    Select Case respuesta.Item("codigoRespuesta")
+                        Case "1"
                             'AUTORIZADO
-                            GuardarDatosSRI(1, 1)
+                            GuardarDatosSRI(1, respuesta.Item("codigoRespuesta"))
                             Archivo.CrearArchivos(SRI.ArchivoXMLAutorizado, 1)
                             'EnviarCorreo()
-                        Case 2
+                        Case "2"
                             'NO AUTORIZADO
-                            GuardarDatosSRI(1, 2)
+                            GuardarDatosSRI(1, respuesta.Item("codigoRespuesta"))
                             Archivo.CrearArchivos(Microsoft.VisualBasic.Left(SRI.ArchivoXMLAutorizado, 30000), 2)
-                        Case 3 'la contingencia es cuado esta con errores
+                        Case "3" 'la contingencia es cuado esta con errores
                             'CONTINGENCIA
-                            GuardarDatosSRI(0, 3)
+                            GuardarDatosSRI(0, respuesta.Item("codigoRespuesta"))
                             Archivo.CrearArchivos(SRI.ArchivoXMLAutorizado, 3)
                         Case Else 'la contingencia es cuado esta con errores
                             'CONTINGENCIA
-                            GuardarDatosSRI(0, 3)
+                            GuardarDatosSRI(0, respuesta.Item("codigoRespuesta"))
                             Archivo.CrearArchivos(SRI.ArchivoXMLAutorizado, 3)
                     End Select
                 End If
@@ -153,6 +165,7 @@ Public Class Administracion
             lstListaComprobantesGenerados.Clear()
             ' @aquingaluisa Metodo comentado porque Angel confirma que el envio de mail lo hacen desde el AUTOREADER
             'cargarReEnvioCorreo()
+
 
             log.SistemaError = "Termino con exito"
             log.MensajeError = "Termino con exito :ejecutarProcesoSiiEnvia"
@@ -234,6 +247,7 @@ Public Class Administracion
             txtComprobantesFirmados.Text = Convert.ToString(row("ComprobantesFirmados"))
             txtComprobantesAutorizados.Text = Convert.ToString(row("ComprobantesAutorizados"))
             txtComprobantesNoautorizados.Text = Convert.ToString(row("ComprobantesNoAutorizados"))
+            txtComprobantesPorAutorizar.Text = Convert.ToString(row("ComprobantesPorAutorizar"))
             txtArchivoP12.Text = Convert.ToString(row("UbicacionArchivoToken"))
             txtContraseniaToken.Text = Convert.ToString(row("ContrasenaToken"))
             strTipoAmbiente = Convert.ToString(row("TipoAmbiente"))
@@ -448,6 +462,12 @@ Public Class Administracion
             Exit Sub
         End If
 
+        If txtComprobantesPorAutorizar.Text = "" Or Len(txtComprobantesPorAutorizar.Text) >= 255 Then
+            MsgBox("El directorio no cumple con los requisitos")
+            txtComprobantesPorAutorizar.Focus()
+            Exit Sub
+        End If
+
         If txtArchivoP12.Text = "" Or Len(txtArchivoP12.Text) >= 255 Then
             MsgBox("La dirección de archivo no cumple con los requisitos")
             txtArchivoP12.Focus()
@@ -577,7 +597,7 @@ Public Class Administracion
 
         BD.GuardarConfigServidorCorreo(txtPuerto.Text, txtServidorCorreo.Text, txtNombreUsuario.Text, txtContrasenaCorreo.Text, txtAsunto.Text, txtMensaje.Text, intConexionSeguridad, txtEnviarCopia.Text, txtUsuarioCorreo.Text)
         BD.GuardarConfiguracionGeneral(txtComprobantesGenerados.Text, txtComprobantesFirmados.Text, txtComprobantesAutorizados.Text, txtComprobantesNoautorizados.Text, txtArchivoP12.Text, txtContraseniaToken.Text, strTipoAmbiente01, txtcomprobantesContingencia.Text, txtComprobantesEnviados.Text,
-                                       txtUrlRecepcionProduccion.Text, txtUrlAutorizacionProduccion.Text, txtUrlRecepcionPruebas.Text, txtUrlAutorizacionPruebas.Text)
+                                       txtUrlRecepcionProduccion.Text, txtUrlAutorizacionProduccion.Text, txtUrlRecepcionPruebas.Text, txtUrlAutorizacionPruebas.Text, txtComprobantesPorAutorizar.Text)
     End Sub
 
     Private Sub btnExaminar01_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExaminar01.Click

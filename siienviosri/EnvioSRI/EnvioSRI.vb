@@ -71,17 +71,19 @@ Public Class EnvioSRI
         End Get
     End Property
     'Metodo principal para enviar el comprobante al SRI
-    Public Function enviarComprobanteAlSRI(ByVal urlWsRecepcionProd As String, ByVal urlWsAutorizacionProd As String, ByVal urlWsRecepcionPru As String, ByVal urlWsAutoPru As String) As Byte
+    Public Function enviarComprobanteAlSRI(ByVal urlWsRecepcionProd As String, ByVal urlWsAutorizacionProd As String, ByVal urlWsRecepcionPru As String, ByVal urlWsAutoPru As String) As Dictionary(Of String, String)
         Dim werServiceSRI As New WebServiceSRI.WebServiceSRI(urlWsRecepcionProd, urlWsAutorizacionProd, urlWsRecepcionPru, urlWsAutoPru)
-
-        Dim intCorrecto As Byte = 0
+        Dim codigoRespuesta As Byte = 0
+        Dim respuesta As New Dictionary(Of String, String)
         ' intCorrecto = 1 - Autorizado
         ' intCorrecto = 2 - No Autorizado
         ' intCorrecto = 3 - Contingencia
 
         If strArchivoXMLPorAutorizar = String.Empty Then
-            intCorrecto = 0
-            Return intCorrecto
+            codigoRespuesta = 0
+            respuesta.Add("codigoRespuesta", codigoRespuesta)
+            respuesta.Add("mensajeRespuesta", "El archivo xml esta vacio.")
+            Return respuesta
         End If
 
         '--------------------------------------------------------------------------------------------
@@ -109,7 +111,9 @@ Public Class EnvioSRI
                     strInformacionAdicional = at.Estado
                     strXMLAutorizado = werServiceSRI.AutorizacionComprobante.xmlRespuestaSRI
                     'bandera  para validar que esta autorizado
-                    intCorrecto = 1
+                    codigoRespuesta = 1
+                    respuesta.Add("codigoRespuesta", codigoRespuesta)
+                    respuesta.Add("mensajeRespuesta", "Archivo xml autorizado.")
                 ElseIf werServiceSRI.AutorizacionComprobante.NumeroComprobantes > 0 Then
                     LimpiarDatos()
                     For Each mensaje As WebServiceSRI.Mensaje In werServiceSRI.AutorizacionComprobante.Autorizacion.Mensajes
@@ -119,7 +123,9 @@ Public Class EnvioSRI
                         strXMLAutorizado = werServiceSRI.AutorizacionComprobante.xmlRespuestaSRI
                         Exit For
                     Next
-                    intCorrecto = 2
+                    codigoRespuesta = 2
+                    respuesta.Add("codigoRespuesta", codigoRespuesta)
+                    respuesta.Add("mensajeRespuesta", "Archivo xml no autorizado.")
                 End If
                 'Cuando falla  el Ws de Recepcion por problemas en el archvivo 
             ElseIf werServiceSRI.RecepcionComprobante.NumeroComprobantes > 0 Then
@@ -131,23 +137,29 @@ Public Class EnvioSRI
                     strXMLAutorizado = werServiceSRI.AutorizacionComprobante.xmlRespuestaSRI
                     'Exit For
                 Next
-                intCorrecto = 2
+                codigoRespuesta = 2
+                respuesta.Add("codigoRespuesta", codigoRespuesta)
+                respuesta.Add("mensajeRespuesta", "Archivo xml no autorizado.")
             ElseIf werServiceSRI.IsOnLine = False Then
                 LimpiarDatos()
                 'MsgBox("No hay conexion a los webservice del SRI", MsgBoxStyle.Exclamation)
                 strInformacionAdicional = "No hay conexion a los webservice del SRI"
-                intCorrecto = 3
+                codigoRespuesta = 3
+                respuesta.Add("codigoRespuesta", codigoRespuesta)
+                respuesta.Add("mensajeRespuesta", "No hay conexion a los webservice del SRI.")
             End If
 
         Catch ex As Exception
             LimpiarDatos()
             'MsgBox(ex.Message, MsgBoxStyle.Critical)
             strInformacionAdicional = ex.Message
-            intCorrecto = 3
+            codigoRespuesta = 3
+            respuesta.Add("codigoRespuesta", codigoRespuesta)
+            respuesta.Add("mensajeRespuesta", strInformacionAdicional)
         End Try
         '--------------------------------------------------------------------------------------------
         werServiceSRI = Nothing
-        Return intCorrecto
+        Return respuesta
     End Function
 
     Private Sub LimpiarDatos()

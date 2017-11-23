@@ -25,7 +25,7 @@ Public Class ConexionBD
         Dim dt As DataTable = New DataTable
 
         sql = "SELECT NombreEmpresa, RUC, ComprobantesGenerados, ComprobantesFirmados, ComprobantesAutorizados, " & _
-              "ComprobantesNoAutorizados, UbicacionArchivoToken, ContrasenaToken, TipoAmbiente, ComprobantesContingencia, ComprobantesEnviados,wsSriPruebasRecepcion,wsSriPruebasAutorizacion,wsSriProduccionRecepcion,wsSriProduccionAutorizacion " & _
+              "ComprobantesNoAutorizados,ComprobantesPorAutorizar, UbicacionArchivoToken, ContrasenaToken, TipoAmbiente, ComprobantesContingencia, ComprobantesEnviados,wsSriPruebasRecepcion,wsSriPruebasAutorizacion,wsSriProduccionRecepcion,wsSriProduccionAutorizacion " & _
               "FROM dbo.GNOpcion"
         Dim comando As SqlCommand = New SqlCommand(sql, ConexionServidorPrincipal)
         Dim adap As SqlDataAdapter = New SqlDataAdapter(comando)
@@ -35,6 +35,8 @@ Public Class ConexionBD
     End Function
 
     Public Function RecuperarConfigServidorCorreo() As DataTable
+        Dim log As New Log
+        log.NombreFuncion = "Metodo :RecuperarConfigServidorCorreo"
         Try
             Dim sql As String
             Dim dt As DataTable = New DataTable
@@ -46,9 +48,13 @@ Public Class ConexionBD
 
             Return dt
         Catch ex As Exception
+            log.SistemaError = ex.Message
+            log.MensajeError = "Error al ejecutar metodo RecuperarConfigServidorCorreo"
+            Throw New Exception(ex.Message)
+
             '//
         End Try
-        
+
     End Function
 
     Public Function DatosCliente(ByVal strArchivo As String) As DataTable
@@ -111,7 +117,8 @@ Public Class ConexionBD
                                           ByVal strTipoAmbiente As String, ByVal strComprobantesContingencia As String, _
                                           ByVal strComprobantesEnviado As String, _
                                           ByVal strWsRecepcionProduccion As String, ByVal strWsAutorizacionProduccion As String, _
-                                          ByVal strWsRecepcionPruebas As String, ByVal strWsAutorizacionPruebas As String)
+                                          ByVal strWsRecepcionPruebas As String, ByVal strWsAutorizacionPruebas As String,
+                                          ByVal strComprobantesPorAutorizar As String)
         Using Conn As SqlConnection = ConexionServidorPrincipal()
             Conn.Open()
             Using Cmd As SqlCommand = Conn.CreateCommand()
@@ -121,6 +128,7 @@ Public Class ConexionBD
                     "ComprobantesFirmados = '" & strComprobantesFirmados & "'," & _
                     "ComprobantesAutorizados = '" & strComprobantesAutorizados & "'," & _
                     "ComprobantesNoAutorizados = '" & strComprobantesNoAutorizados & "'," & _
+                    "ComprobantesPorAutorizar = '" & strComprobantesPorAutorizar & "'," & _
                     "UbicacionArchivoToken = '" & strUbicacionArchivoToken & "'," & _
                     "ContrasenaToken = '" & strContrasenaToken & "'," & _
                     "TipoAmbiente = '" & strTipoAmbiente & "'," & _
@@ -283,5 +291,36 @@ Public Class ConexionBD
                 Cmd.ExecuteNonQuery()
             End Using
         End Using
+    End Sub
+    'Actualizar el xml generado y firmado
+    Public Sub guardarXMLOffLine(ByVal strArchivoXML As String, ByVal intIDTrans As ULong)
+        Dim dato As New Datos
+
+        Try
+            Using Conn As SqlConnection = ConexionServidorPrincipal()
+                Conn.Open()
+                Using Cmd As SqlCommand = Conn.CreateCommand()
+                    Cmd.CommandText = "UPDATE InfoComprobantes " & _
+                                        "SET " & _
+                                        "ArchivoXmlOffLine = @punteroaCampoXML  " & _
+                                        ",bandpdf = @bandpdf  " & _
+                                        ",EstaFirmada = @estaFirmada  " & _
+                                        "WHERE TransID = " & intIDTrans
+                    If strArchivoXML <> "" Then
+                        Dim ParametroSQLXML As SqlXml = New SqlXml(New XmlTextReader(New StringReader(strArchivoXML)))
+                        Cmd.Parameters.AddWithValue("@punteroaCampoXML", ParametroSQLXML)
+                    Else
+                        Dim ParametroSQLXML As SqlXml = New SqlXml(New XmlTextReader(New StringReader("<estado>No Registrado</estado>")))
+                        Cmd.Parameters.AddWithValue("@punteroaCampoXML", ParametroSQLXML)
+                    End If
+                    'bandera para que permita nuevamente  enviar el archivo
+                    Cmd.Parameters.AddWithValue("@bandpdf", 0)
+                    Cmd.Parameters.AddWithValue("@estaFirmada", 1)
+                    Cmd.ExecuteNonQuery()
+                End Using
+            End Using
+        Catch ex As System.Data.SqlClient.SqlException
+            '//
+        End Try
     End Sub
 End Class

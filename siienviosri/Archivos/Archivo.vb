@@ -155,10 +155,17 @@ Public Class Archivo
             er.NombreFuncion = "Archivo.IsValidXML"
             er.SistemaError = ex.Message
             er.MensajeError = "No existe el archivo " & value
-        Catch e As System.IO.IOException
-            '//
+        Catch ex As System.IO.IOException
+            Dim er As New Log
+            er.NombreFuncion = "Archivo.IsValidXML"
+            er.SistemaError = ex.Message
+            er.MensajeError = "IOException " & value
             Return False
+        Finally
+            reader.Close()
+
         End Try
+
         Return False
     End Function
 
@@ -208,8 +215,8 @@ Public Class Archivo
         Dim strContingencia As String = strCarpetaContingencia & "\" & strNombreArchivo
         Dim strNoAutorizados As String = strCarpetaNoAutorizados & "\" & strNombreArchivo
         Dim strPorAutorizar As String = strCarpetaPorAutorizar & "\" & strNombreArchivo
-
-        CopiaGenerados(strCarpetaGenerados, strNombreArchivo, strArchivoRelativoXML)
+        'copia los archivos de la carpeta por autorizar a la carpeta copia
+        CopiaPorAutorizar(strPorAutorizar, strNombreArchivo, strArchivoRelativoXML)
         'Dim prueba As String = strArchivoRelativoXML
 
         Select Case intEstado
@@ -232,15 +239,15 @@ Public Class Archivo
                 Dim intIdTransaccion As ULong = dato.IdTransaccion(strGenerados)
                 Dim strTipoEmision As String = dato.RecuperarTipoEmision(strArchivoRelativoXML)
 
-                If File.Exists(strGenerados) Then File.Delete(strGenerados)
-                If File.Exists(strContingencia) Then File.Delete(strContingencia)
-                If File.Exists(strFirmados) Then File.Delete(strFirmados)
+                'If File.Exists(strPorAutorizar) Then File.Delete(strPorAutorizar)
+                'If File.Exists(strContingencia) Then File.Delete(strContingencia)
+                'If File.Exists(strFirmados) Then File.Delete(strFirmados)
 
                 Dim BD As New ConexionBD
                 Dim strClaveAcceso As String = ""
 
                 strClaveAcceso = dato.RecuperarClaveAcceso(strArchivoRelativoXML)
-                GuardarArchivoTexto(strGenerados, strArchivoRelativoXML, True)
+                'GuardarArchivoTexto(strGenerados, strArchivoRelativoXML, True)
 
                 BD.ActualizarDatosSRI(strClaveAcceso, _
                               0, _
@@ -418,8 +425,8 @@ Public Class Archivo
         Next
     End Sub
 
-    Private Sub CopiaGenerados(ByVal strPathDirectorio As String, ByVal strNombreArchivo As String, ByVal strContenidoArchivo As String)
-        Dim strCopiaGen As String = strPathDirectorio.Replace("Generados", "Copia Generados")
+    Private Sub CopiaPorAutorizar(ByVal strPathDirectorio As String, ByVal strNombreArchivo As String, ByVal strContenidoArchivo As String)
+        Dim strCopiaGen As String = strPathDirectorio.Replace("Por Autorizar", "copia Por Autorizar")
 
         If System.IO.Directory.Exists(strCopiaGen) Then
         Else

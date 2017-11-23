@@ -26,6 +26,9 @@ Partial Class Administracion
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Administracion))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tabDirectorios = New System.Windows.Forms.TabPage()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.txtComprobantesPorAutorizar = New System.Windows.Forms.TextBox()
+        Me.Label36 = New System.Windows.Forms.Label()
         Me.btnExaminar08 = New System.Windows.Forms.Button()
         Me.txtComprobantesEnviados = New System.Windows.Forms.TextBox()
         Me.Label31 = New System.Windows.Forms.Label()
@@ -132,9 +135,6 @@ Partial Class Administracion
         Me.btnFirmarEnviar = New System.Windows.Forms.Button()
         Me.ntfAreaNotificacion = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.btnPruebaTimer = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.txtComprobantesPorAutorizar = New System.Windows.Forms.TextBox()
-        Me.Label36 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.tabDirectorios.SuspendLayout()
         Me.TabAutFirma.SuspendLayout()
@@ -196,6 +196,33 @@ Partial Class Administracion
         Me.tabDirectorios.TabIndex = 0
         Me.tabDirectorios.Text = "Configurar Directorios"
         Me.tabDirectorios.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(560, 76)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(29, 21)
+        Me.Button1.TabIndex = 20
+        Me.Button1.Text = "..."
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'txtComprobantesPorAutorizar
+        '
+        Me.txtComprobantesPorAutorizar.Location = New System.Drawing.Point(178, 77)
+        Me.txtComprobantesPorAutorizar.Name = "txtComprobantesPorAutorizar"
+        Me.txtComprobantesPorAutorizar.Size = New System.Drawing.Size(376, 20)
+        Me.txtComprobantesPorAutorizar.TabIndex = 19
+        Me.txtComprobantesPorAutorizar.Text = "C:\Direccion\Por Autorizar"
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.Location = New System.Drawing.Point(14, 80)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(138, 13)
+        Me.Label36.TabIndex = 18
+        Me.Label36.Text = "Comprobantes Por Autorizar"
         '
         'btnExaminar08
         '
@@ -373,7 +400,7 @@ Partial Class Administracion
         Me.TabAutFirma.Location = New System.Drawing.Point(4, 22)
         Me.TabAutFirma.Name = "TabAutFirma"
         Me.TabAutFirma.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabAutFirma.Size = New System.Drawing.Size(656, 207)
+        Me.TabAutFirma.Size = New System.Drawing.Size(656, 226)
         Me.TabAutFirma.TabIndex = 1
         Me.TabAutFirma.Text = "Autenticación Firma"
         Me.TabAutFirma.UseVisualStyleBackColor = True
@@ -475,7 +502,7 @@ Partial Class Administracion
         Me.TabCompFirmados.Controls.Add(Me.Label16)
         Me.TabCompFirmados.Location = New System.Drawing.Point(4, 22)
         Me.TabCompFirmados.Name = "TabCompFirmados"
-        Me.TabCompFirmados.Size = New System.Drawing.Size(656, 207)
+        Me.TabCompFirmados.Size = New System.Drawing.Size(656, 226)
         Me.TabCompFirmados.TabIndex = 2
         Me.TabCompFirmados.Text = "Claves Contingencia"
         Me.TabCompFirmados.UseVisualStyleBackColor = True
@@ -564,7 +591,7 @@ Partial Class Administracion
         Me.tabServidorCorreo.Controls.Add(Me.Label8)
         Me.tabServidorCorreo.Location = New System.Drawing.Point(4, 22)
         Me.tabServidorCorreo.Name = "tabServidorCorreo"
-        Me.tabServidorCorreo.Size = New System.Drawing.Size(656, 207)
+        Me.tabServidorCorreo.Size = New System.Drawing.Size(656, 226)
         Me.tabServidorCorreo.TabIndex = 3
         Me.tabServidorCorreo.Text = "Servidor Correo"
         Me.tabServidorCorreo.UseVisualStyleBackColor = True
@@ -720,7 +747,7 @@ Partial Class Administracion
         Me.TabConfBaseDatos.Controls.Add(Me.TabControl2)
         Me.TabConfBaseDatos.Location = New System.Drawing.Point(4, 22)
         Me.TabConfBaseDatos.Name = "TabConfBaseDatos"
-        Me.TabConfBaseDatos.Size = New System.Drawing.Size(656, 207)
+        Me.TabConfBaseDatos.Size = New System.Drawing.Size(656, 226)
         Me.TabConfBaseDatos.TabIndex = 4
         Me.TabConfBaseDatos.Text = "Configurar Sistema"
         Me.TabConfBaseDatos.UseVisualStyleBackColor = True
@@ -952,6 +979,7 @@ Partial Class Administracion
         Me.Label29.Size = New System.Drawing.Size(94, 13)
         Me.Label29.TabIndex = 11
         Me.Label29.Text = "Hora Envió Correo"
+        Me.Label29.Visible = False
         '
         'dtpHoraEnvio
         '
@@ -961,6 +989,7 @@ Partial Class Administracion
         Me.dtpHoraEnvio.ShowUpDown = True
         Me.dtpHoraEnvio.Size = New System.Drawing.Size(74, 20)
         Me.dtpHoraEnvio.TabIndex = 10
+        Me.dtpHoraEnvio.Visible = False
         '
         'chkIniciarConWindows
         '
@@ -1197,39 +1226,13 @@ Partial Class Administracion
         '
         'btnPruebaTimer
         '
-        Me.btnPruebaTimer.Location = New System.Drawing.Point(445, 271)
+        Me.btnPruebaTimer.Location = New System.Drawing.Point(439, 271)
         Me.btnPruebaTimer.Name = "btnPruebaTimer"
-        Me.btnPruebaTimer.Size = New System.Drawing.Size(75, 23)
+        Me.btnPruebaTimer.Size = New System.Drawing.Size(125, 25)
         Me.btnPruebaTimer.TabIndex = 15
         Me.btnPruebaTimer.Text = "PruebaTimer"
         Me.btnPruebaTimer.UseVisualStyleBackColor = True
-        '
-        'Button1
-        '
-        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(560, 76)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(29, 21)
-        Me.Button1.TabIndex = 20
-        Me.Button1.Text = "..."
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'txtComprobantesPorAutorizar
-        '
-        Me.txtComprobantesPorAutorizar.Location = New System.Drawing.Point(178, 77)
-        Me.txtComprobantesPorAutorizar.Name = "txtComprobantesPorAutorizar"
-        Me.txtComprobantesPorAutorizar.Size = New System.Drawing.Size(376, 20)
-        Me.txtComprobantesPorAutorizar.TabIndex = 19
-        Me.txtComprobantesPorAutorizar.Text = "C:\ia\ComprobantesElectronicos\Por Autorizar"
-        '
-        'Label36
-        '
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(14, 80)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(138, 13)
-        Me.Label36.TabIndex = 18
-        Me.Label36.Text = "Comprobantes Por Autorizar"
+        Me.btnPruebaTimer.Visible = False
         '
         'Administracion
         '
@@ -1298,7 +1301,6 @@ Partial Class Administracion
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents btnGuardar As System.Windows.Forms.Button
     Friend WithEvents TabCompFirmados As System.Windows.Forms.TabPage
-    Friend WithEvents tmrActualizaLista As System.Windows.Forms.Timer
     Friend WithEvents tabServidorCorreo As System.Windows.Forms.TabPage
     Friend WithEvents optTipoAmbienteProduccion As System.Windows.Forms.RadioButton
     Friend WithEvents optTipoAmbientePruebas As System.Windows.Forms.RadioButton
@@ -1385,4 +1387,5 @@ Partial Class Administracion
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents txtComprobantesPorAutorizar As System.Windows.Forms.TextBox
     Friend WithEvents Label36 As System.Windows.Forms.Label
+    Friend WithEvents tmrActualizaLista As System.Windows.Forms.Timer
 End Class

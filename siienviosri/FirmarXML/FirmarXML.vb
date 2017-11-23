@@ -76,6 +76,8 @@ Public Class FirmarXML
             strFirmados & "\" & strArchivoXML
     End Function
     'metodo para firmar el archivo xml 
+    'copiar el archivo firmado en la carpeta firmados y en la carpeta  por autorizar
+    'eliminar el archivo de generados
     Public Function Firmar() As Boolean
         Shell("C:\IA\EnvioSRI\FirmarXML\FirmarXMLv01 " & establecerParametros(), AppWinStyle.Hide)
         System.Threading.Thread.Sleep(6000)
@@ -83,11 +85,16 @@ Public Class FirmarXML
         Try
             'Validar si el archivo  firmado existe para eliminar el archivo  de generados
             If System.IO.File.Exists(ArchivoXMLFirmado()) Then
-                'eliminar el archivo de  generados
-                archivo.eliminarArchivo(strGenerados & "\" & strArchivoXML)
+                If System.IO.File.Exists(archivo.CarpetaPorAutorizar & "\" & strArchivoXML) Then
+                    System.IO.File.Delete(archivo.CarpetaPorAutorizar & "\" & strArchivoXML)
+                End If
                 'copiar el archivo en la carpeta de por autorizar
                 My.Computer.FileSystem.CopyFile(ArchivoXMLFirmado(), archivo.CarpetaPorAutorizar & "\" & strArchivoXML)
-                Return (True)
+
+                'eliminar el archivo de  generados
+                archivo.eliminarArchivo(strGenerados & "\" & strArchivoXML)
+               
+                Return True
 
             Else
                 Return False

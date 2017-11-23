@@ -1,4 +1,5 @@
-﻿'Clase para manejar el proceso  offLine del SRI para las Facturas
+﻿'@autor aquingaluisa
+'Clase para manejar el proceso  offLine del SRI para las Facturas
 Public Class ProcesoSRIFacturacionOffLine
     Private Property archivo As Archivo
     Private Property sriEnvio As EnvioSRI
@@ -31,7 +32,8 @@ Public Class ProcesoSRIFacturacionOffLine
 
     Public Sub ejecutarProcesoOffLineSRI(ByVal txtdirecionArchivoP12 As String, ByVal txtpasswodP12 As String,
                                          ByVal lstListaComprobantesGenerados As Collection, ByVal esContigencia As Boolean)
-        '1.- Primero se debe firmar los  comprobantes electronicos de la carpeta de generados
+        '1.- Primero se debe firmar los  comprobantes electronicos de la carpeta de generados,
+        'el proceso firma los archivos los cambia al directorio firmados y  los amacena en base de datos
         Me.firmarDocumentosElectronicos(txtdirecionArchivoP12, txtpasswodP12, lstListaComprobantesGenerados, esContigencia)
 
         '2.- Autorizar los documentos electronicos que se encuentran en el directorio firmados
@@ -65,6 +67,10 @@ Public Class ProcesoSRIFacturacionOffLine
                 Firma.ArchivoXMLGenerado = strNombreArchivo
                 'firma el archivo xml a enviar
                 estaFirmado = Firma.Firmar()
+                If estaFirmado Then
+                    'almacenar los archivos firmados en base
+                    Me.guardarXmlOfLine()
+                End If
 
             End If
             '-------------------------------------------------------------
@@ -84,31 +90,47 @@ Public Class ProcesoSRIFacturacionOffLine
                 archivo.NombreArchivo = nombrerArchivoFirmado
                 sriEnvio.ArchivoXMLPorAutorizar = Me.archivo.CarpetaPorAutorizar & "\" & nombrerArchivoFirmado
                 sriEnvio.Proxy = Me.utilizaProxy
-                Select Case sriEnvio.enviarComprobanteAlSRI(Me.txtUrlRecepcionProduccion, Me.txtUrlAutorizacionProduccion,
+                Dim respuesta As Dictionary(Of String, String) = sriEnvio.enviarComprobanteAlSRI(Me.txtUrlRecepcionProduccion, Me.txtUrlAutorizacionProduccion,
                                                 Me.txtUrlRecepcionPruebas, Me.txtUrlAutorizacionPruebas)
-                    Case 1
+                Select Case respuesta.Item("codigoRespuesta")
+                    Case "1"
                         'AUTORIZADO
-                        GuardarDatosSRI(1, 1)
+                        GuardarDatosSRI(1, respuesta, archivo.CarpetaPorAutorizar & "\" & archivo.NombreArchivo)
                         archivo.CrearArchivos(sriEnvio.ArchivoXMLAutorizado, 1)
                         'EnviarCorreo()
-                    Case 2
+                    Case "2"
                         'NO AUTORIZADO
-                        GuardarDatosSRI(1, 2)
+                        GuardarDatosSRI(1, respuesta, archivo.CarpetaPorAutorizar & "\" & archivo.NombreArchivo)
                         archivo.CrearArchivos(Microsoft.VisualBasic.Left(sriEnvio.ArchivoXMLAutorizado, 30000), 2)
-                    Case 3 'la contingencia es cuado esta con errores
+                    Case "3" 'la contingencia es cuado esta con errores
                         'CONTINGENCIA
-                        GuardarDatosSRI(0, 3)
+                        GuardarDatosSRI(0, respuesta, archivo.CarpetaPorAutorizar & "\" & archivo.NombreArchivo)
                         archivo.CrearArchivos(sriEnvio.ArchivoXMLAutorizado, 3)
                     Case Else 'la contingencia es cuado esta con errores
                         'CONTINGENCIA
-                        GuardarDatosSRI(0, 3)
+                        GuardarDatosSRI(0, respuesta, archivo.CarpetaPorAutorizar & "\" & archivo.NombreArchivo)
                         archivo.CrearArchivos(sriEnvio.ArchivoXMLAutorizado, 3)
                 End Select
             Next
         End If
     End Sub
+    'Metodo para guardar en el xml en  base
+    Private Sub guardarXmlOfLine()
+        Dim db As New ConexionBD
+        Dim dato As New Datos
+        Dim strClaveAcceso As String = ""
+        Dim strArchivoXML As String = ""
 
-    Private Sub GuardarDatosSRI(ByVal intEnviado As Byte, ByVal intEstado As Byte)
+        'path de los archivos firmados
+        strArchivoXML = archivo.CarpetaFirmados & "\" & archivo.NombreArchivo
+        'leer el archivo 
+        ArchivoRelativo(strArchivoXML)
+
+        Dim xmlContenido = WebServiceSRI.WebServiceSRI.getOuterXML(strArchivoXML)
+
+        db.guardarXMLOffLine(xmlContenido, dato.IdTransaccion(strArchivoXML))
+    End Sub
+    Private Sub GuardarDatosSRI(ByVal intEnviado As Byte, ByVal respuesta As Dictionary(Of String, String), ByRef strPathArchivo As String)
         Dim BD As New ConexionBD
         Dim dato As New Datos
         Dim strArchivoXML As String = ""
@@ -116,8 +138,9 @@ Public Class ProcesoSRIFacturacionOffLine
         Dim strClaveAcceso As String = ""
         Dim strMensajeAlterno As String = ""
         Dim strCodigoAlterno As String = ""
+        Dim intEstado As Byte = respuesta.Item("codigoRespuesta")
         'para autorizar o no autorizar debe cojer del path de  firmados
-        strArchivoXML = archivo.CarpetaFirmados & "\" & archivo.NombreArchivo
+        strArchivoXML = strPathArchivo
 
         ArchivoRelativo(strArchivoXML)
         CargarDatosCliente()
@@ -129,10 +152,15 @@ Public Class ProcesoSRIFacturacionOffLine
         strMensajeAlterno = sriEnvio.InformacionAdicional
         strCodigoAlterno = sriEnvio.CodigoMensaje
 
+        'valida que contine un error
         If Len(sriEnvio.ArchivoXMLAutorizado) < 4 Then
             intEstado = 2
+            If (respuesta.Item("codigoRespuesta") <> String.Empty) Then
+                strMensajeAlterno = respuesta.Item("mensajeRespuesta")
+            Else
+                strMensajeAlterno = "Reenviar comprobante. SRI no ha devuelto XML."
 
-            strMensajeAlterno = "Reenviar comprobante. SRI no ha devuelto XML."
+            End If
             strCodigoAlterno = "35"
         End If
 

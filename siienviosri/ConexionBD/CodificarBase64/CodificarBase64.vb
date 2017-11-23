@@ -33,7 +33,14 @@ Public Class CodificarBase64
     Private CodTexto As String
     Private DecTexto As String
 
-    Private Function StringToBase64() As String
+    Sub New(ByVal CodTexto As String, ByVal DecTexto As String)
+        Me.CodTexto = CodTexto
+        Me.DecTexto = DecTexto
+    End Sub
+
+    Sub New()
+    End Sub
+    Public Function StringToBase64() As String
         ' Obtener una representación de bytes de la cadena de origen.
         Dim b As Byte() = Encoding.Unicode.GetBytes(CodTexto)
 
@@ -41,7 +48,7 @@ Public Class CodificarBase64
         Return Convert.ToBase64String(b)
     End Function
 
-    Private Function Base64ToString() As String
+    Public Function Base64ToString() As String
         ' Decodificar la cadena codificada en base 64 a una matriz de bytes.
         Dim b As Byte() = Convert.FromBase64String(DecTexto)
 

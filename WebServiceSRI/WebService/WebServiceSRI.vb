@@ -310,6 +310,10 @@ Public Class WebServiceSRI
         Dim data As String = String.Empty
         Dim address As String = String.Empty
         Dim retVal As String = String.Empty
+        If tipoAmbienteValue <> 1 And tipoAmbienteValue <> 2 Then
+            Throw New System.Exception("El ambiente del archivo no es el correcto, valor ambiente:" & tipoAmbienteValue)
+        End If
+
         '---------------------------------------------------------------------------------------------
         If ACCTION = AcctionType.AUTORIZACION Then
             address = WSAutorizacion(tipoAmbienteValue)
@@ -437,7 +441,7 @@ Public Class WebServiceSRI
         w = Nothing
     End Function
 
-    Private Function getOuterXML(ByVal fileNameXML As String) As String
+    Public Shared Function getOuterXML(ByVal fileNameXML As String) As String
         Dim reader As XmlTextReader = Nothing
         Dim xml As New XmlDocument
         Dim retVal As String = String.Empty
