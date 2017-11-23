@@ -1,0 +1,8 @@
+D:\EAP\des\siienvia\WebServiceSRI\bin\Release\WebServiceSRI.dll
+D:\EAP\des\siienvia\WebServiceSRI\bin\Release\WebServiceSRI.pdb
+D:\EAP\des\siienvia\WebServiceSRI\bin\Release\WebServiceSRI.xml
+D:\EAP\des\siienvia\WebServiceSRI\obj\x86\Release\WebServiceSRI.Resources.resources
+D:\EAP\des\siienvia\WebServiceSRI\obj\x86\Release\WebServiceSRI.vbproj.GenerateResource.Cache
+D:\EAP\des\siienvia\WebServiceSRI\obj\x86\Release\WebServiceSRI.dll
+D:\EAP\des\siienvia\WebServiceSRI\obj\x86\Release\WebServiceSRI.xml
+D:\EAP\des\siienvia\WebServiceSRI\obj\x86\Release\WebServiceSRI.pdb
