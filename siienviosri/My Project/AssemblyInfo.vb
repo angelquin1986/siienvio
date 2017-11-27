@@ -1,4 +1,6 @@
-﻿Imports System
+﻿Imports System.Resources
+
+Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
@@ -8,14 +10,14 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("SiiEnvioSRI")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("SiiEnvioSRI")> 
-<Assembly: AssemblyCopyright("Copyright ©  2014")> 
+<Assembly: AssemblyTitle("SiiEnvioSRI2.0")> 
+<Assembly: AssemblyDescription("Autorización de comprobantes electrónicos")> 
+<Assembly: AssemblyCompany("Ishida Soft")> 
+<Assembly: AssemblyProduct("SiiEnvioSRI2.0")> 
+<Assembly: AssemblyCopyright("Copyright ©  2017")> 
 <Assembly: AssemblyTrademark("")> 
 
-<Assembly: ComVisible(False)>
+<Assembly: ComVisible(False)> 
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
 <Assembly: Guid("dc64ddc7-6ae2-47fd-a96c-45ba8273b9a3")> 
@@ -31,5 +33,7 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.0.0")> 
-<Assembly: AssemblyFileVersion("1.0.0.0")> 
+<Assembly: AssemblyVersion("2.0.0.0")> 
+<Assembly: AssemblyFileVersion("2.0.0.0")> 
+
+<Assembly: NeutralResourcesLanguageAttribute("es-EC")> 

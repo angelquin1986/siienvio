@@ -5,7 +5,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SiiEnvioSRI", "SiiEnvioSRI\
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WebServiceSRI", "WebServiceSRI\WebServiceSRI.vbproj", "{8BBB0FAB-7655-426F-902F-45B47F7A628C}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{9A5F2CD1-D0A0-47B7-8E65-7B1D90193166}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupSIIEnvia", "SetupSIIEnvia\SetupSIIEnvia.vdproj", "{6BAC3F46-0D63-44EA-8BEE-232608FBA4D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +21,8 @@ Global
 		{8BBB0FAB-7655-426F-902F-45B47F7A628C}.Debug|x86.Build.0 = Debug|x86
 		{8BBB0FAB-7655-426F-902F-45B47F7A628C}.Release|x86.ActiveCfg = Release|x86
 		{8BBB0FAB-7655-426F-902F-45B47F7A628C}.Release|x86.Build.0 = Release|x86
-		{9A5F2CD1-D0A0-47B7-8E65-7B1D90193166}.Debug|x86.ActiveCfg = Debug
-		{9A5F2CD1-D0A0-47B7-8E65-7B1D90193166}.Release|x86.ActiveCfg = Release
+		{6BAC3F46-0D63-44EA-8BEE-232608FBA4D7}.Debug|x86.ActiveCfg = Debug
+		{6BAC3F46-0D63-44EA-8BEE-232608FBA4D7}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

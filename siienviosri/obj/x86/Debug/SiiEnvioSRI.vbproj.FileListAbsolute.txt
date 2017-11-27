@@ -50,9 +50,11 @@ C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\obj\x86\Debug\SiiEnvioS
 C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.Form1.resources
 C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.Resources.resources
 C:\Users\ASERVER-PC\Desktop\fuentes siienvio\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.vbproj.GenerateResource.Cache
-D:\EAP\des\siienvia\SiiEnvioSRI\bin\Debug\SiiEnvioSRI.exe
-D:\EAP\des\siienvia\SiiEnvioSRI\bin\Debug\SiiEnvioSRI.pdb
-D:\EAP\des\siienvia\SiiEnvioSRI\bin\Debug\SiiEnvioSRI.xml
+D:\EAP\des\siienvia\SiiEnvioSRI\bin\Debug\SiiEnvioSRI2.0.exe.manifest
+D:\EAP\des\siienvia\SiiEnvioSRI\bin\Debug\SiiEnvioSRI2.0.application
+D:\EAP\des\siienvia\SiiEnvioSRI\bin\Debug\SiiEnvioSRI2.0.exe
+D:\EAP\des\siienvia\SiiEnvioSRI\bin\Debug\SiiEnvioSRI2.0.pdb
+D:\EAP\des\siienvia\SiiEnvioSRI\bin\Debug\SiiEnvioSRI2.0.xml
 D:\EAP\des\siienvia\SiiEnvioSRI\bin\Debug\WebServiceSRI.dll
 D:\EAP\des\siienvia\SiiEnvioSRI\bin\Debug\WebServiceSRI.pdb
 D:\EAP\des\siienvia\SiiEnvioSRI\bin\Debug\WebServiceSRI.xml
@@ -64,6 +66,8 @@ D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.Administracion.resourc
 D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.Form1.resources
 D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.Resources.resources
 D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.vbproj.GenerateResource.Cache
-D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.exe
-D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.xml
-D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI.pdb
+D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI2.0.exe.manifest
+D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI2.0.application
+D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI2.0.exe
+D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI2.0.xml
+D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Debug\SiiEnvioSRI2.0.pdb
