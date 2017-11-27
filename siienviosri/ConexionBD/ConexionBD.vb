@@ -10,7 +10,8 @@ Public Class ConexionBD
     Private Function ConexionServidorPrincipal() As SqlConnection
         Dim Decodificar As New CodificarBase64
         Dim archivo As New Archivo
-
+        'codificar un string 
+        Decodificar.CodificarTexto = "fuentes\ia2012,nitro2015,sa,Rtl8139c"
         Decodificar.DecodificarTexto = archivo.LeerArchivoTexto("C:\IA\EnvioSRI\iadt000.ibz")
 
         Dim TestArray() As String = Split(Decodificar.DecodificarTexto, ",")
