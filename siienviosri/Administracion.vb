@@ -144,9 +144,11 @@ Public Class Administracion
     'Evento que se ejecutar en  el intervalo seleccionado  por la pantalla
     Private Sub tmrActualizaLista_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrActualizaLista.Tick
         tmrActualizaLista.Stop()
+        Me.lblEjecutando.Visible = True
         'metodo general de siiEnvia
         ejecutarProcesoSiiEnvia()
         tiempoEjecutar()
+        Me.lblEjecutando.Visible = False
     End Sub
     'Metodo general que se ejecuta en el timer  de la aplicacion
     Public Sub ejecutarProcesoSiiEnvia()
@@ -412,10 +414,16 @@ Public Class Administracion
             btnFirmarEnviar.Text = "Detener"
             blnCambiarTextoBotonEnvio = True
             tiempoEjecutar()
+            Me.TabControl1.Enabled = False
+            Me.btnGuardar.Enabled = False
+            Me.btnSalir.Enabled = False
         Else
             tmrActualizaLista.Stop()
             btnFirmarEnviar.Text = "Iniciar"
             blnCambiarTextoBotonEnvio = False
+            Me.TabControl1.Enabled = True
+            Me.btnGuardar.Enabled = True
+            Me.btnSalir.Enabled = True
         End If
     End Sub
 

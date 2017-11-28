@@ -135,6 +135,7 @@ Partial Class Administracion
         Me.btnFirmarEnviar = New System.Windows.Forms.Button()
         Me.ntfAreaNotificacion = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.btnPruebaTimer = New System.Windows.Forms.Button()
+        Me.lblEjecutando = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.tabDirectorios.SuspendLayout()
         Me.TabAutFirma.SuspendLayout()
@@ -1226,7 +1227,7 @@ Partial Class Administracion
         '
         'btnPruebaTimer
         '
-        Me.btnPruebaTimer.Location = New System.Drawing.Point(439, 271)
+        Me.btnPruebaTimer.Location = New System.Drawing.Point(548, 271)
         Me.btnPruebaTimer.Name = "btnPruebaTimer"
         Me.btnPruebaTimer.Size = New System.Drawing.Size(125, 25)
         Me.btnPruebaTimer.TabIndex = 15
@@ -1234,11 +1235,22 @@ Partial Class Administracion
         Me.btnPruebaTimer.UseVisualStyleBackColor = True
         Me.btnPruebaTimer.Visible = False
         '
+        'lblEjecutando
+        '
+        Me.lblEjecutando.AutoSize = True
+        Me.lblEjecutando.Location = New System.Drawing.Point(442, 277)
+        Me.lblEjecutando.Name = "lblEjecutando"
+        Me.lblEjecutando.Size = New System.Drawing.Size(69, 13)
+        Me.lblEjecutando.TabIndex = 16
+        Me.lblEjecutando.Text = "ejecutando..."
+        Me.lblEjecutando.Visible = False
+        '
         'Administracion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(685, 311)
+        Me.Controls.Add(Me.lblEjecutando)
         Me.Controls.Add(Me.btnPruebaTimer)
         Me.Controls.Add(Me.btnFirmarEnviar)
         Me.Controls.Add(Me.btnSalir)
@@ -1275,6 +1287,7 @@ Partial Class Administracion
         Me.tblWebService.ResumeLayout(False)
         Me.tblWebService.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
@@ -1388,4 +1401,5 @@ Partial Class Administracion
     Friend WithEvents txtComprobantesPorAutorizar As System.Windows.Forms.TextBox
     Friend WithEvents Label36 As System.Windows.Forms.Label
     Friend WithEvents tmrActualizaLista As System.Windows.Forms.Timer
+    Friend WithEvents lblEjecutando As System.Windows.Forms.Label
 End Class

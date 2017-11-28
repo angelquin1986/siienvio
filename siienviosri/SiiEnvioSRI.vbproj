@@ -171,19 +171,6 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="Resources\iadt000.ibz" />
-    <None Include="Resources\iadt0001.ibz" />
-    <None Include="Resources\iadt00011.ibz" />
-    <None Include="Resources\iadt001.ibz" />
-    <None Include="Resources\iadt0011.ibz" />
-    <None Include="Resources\iadt00111.ibz" />
-    <None Include="Resources\iadt0012.ibz" />
-    <None Include="Resources\iadt002.ibz" />
-    <None Include="Resources\iadt0021.ibz" />
-    <None Include="Resources\iadt00211.ibz" />
-    <None Include="Resources\iadt0022.ibz" />
-    <None Include="Resources\logEnvioSRI.log" />
-    <None Include="Resources\logEnvioSRI1.log" />
     <None Include="SiiEnvioSRI_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
