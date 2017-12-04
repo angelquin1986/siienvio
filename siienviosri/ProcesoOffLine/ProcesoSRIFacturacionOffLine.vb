@@ -128,7 +128,47 @@ Public Class ProcesoSRIFacturacionOffLine
 
         Dim xmlContenido = WebServiceSRI.WebServiceSRI.getOuterXML(strArchivoXML)
 
-        db.guardarXMLOffLine(xmlContenido, dato.IdTransaccion(strArchivoXML))
+        'para el parametro de firmada 
+        'si es 0 o null no esta firmada(No se puende enviar)
+        'si es 1 es firmada (se debe enviar por primera vez)
+        'si es 2 es firmada ,ya se envio anteriormente y debe enviar agregando al asundo Correción)
+        'si es 3 es firmada, ya se envio anteriormente y ya no se debe enviar nuevamente 
+
+        Dim dataComp As DataTable = db.obtenerInfoComprobantes(dato.IdTransaccion(strArchivoXML))
+        Dim row As DataRow = dataComp.Rows(0)
+        Dim intBanderaEstaFirmado As Integer
+
+        Dim dataVariableReenvio As DataTable = db.obtenerVariableReeviaCorreo()
+        Dim intBanderaReenviarCorreo As Boolean
+        If dataVariableReenvio IsNot Nothing AndAlso dataVariableReenvio.Rows.Count > 0 Then
+            If dataVariableReenvio.Rows(0).IsNull("Valor") = False AndAlso dataVariableReenvio.Rows(0)("Valor") = 0 Then
+                intBanderaReenviarCorreo = False
+            Else
+                intBanderaReenviarCorreo = True
+            End If
+
+        Else
+            intBanderaReenviarCorreo = True
+        End If
+
+        Dim boolBandPdf As Boolean = row("BandPdf")
+        'si ya fue enviado
+        If boolBandPdf Then
+            If intBanderaReenviarCorreo Then
+                intBanderaEstaFirmado = 2
+            Else
+                intBanderaReenviarCorreo = 3
+            End If
+        Else
+            'se almacena como firmado y requiere envio
+            If dataVariableReenvio.Rows(0).IsNull("Valor") Then
+                intBanderaEstaFirmado = 1
+            Else
+                intBanderaEstaFirmado = row("EstaFirmada")
+            End If
+
+        End If
+        db.guardarXMLOffLine(xmlContenido, dato.IdTransaccion(strArchivoXML), intBanderaEstaFirmado)
     End Sub
     Private Sub GuardarDatosSRI(ByVal intEnviado As Byte, ByVal respuesta As Dictionary(Of String, String), ByRef strPathArchivo As String)
         Dim BD As New ConexionBD

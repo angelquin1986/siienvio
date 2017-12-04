@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SiiEnvioSRI2.0.exe" size="228352">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SiiEnvioSRI2.0.exe" size="229376">
       <assemblyIdentity name="SiiEnvioSRI2.0" version="2.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>OIjYBZOpWX/3xlGWwTo7Hlds2MI=</dsig:DigestValue>
+        <dsig:DigestValue>uK5EdgZDgUO+EfRqmMqphTS14r8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -62,7 +62,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>kfsTPaqKIRydIe3Mn7Ya8POZnWk=</dsig:DigestValue>
+        <dsig:DigestValue>O+0lr4pxg1YKll7goJAdxXIyiCM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

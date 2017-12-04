@@ -293,8 +293,37 @@ Public Class ConexionBD
             End Using
         End Using
     End Sub
+    Public Function obtenerInfoComprobantes(ByVal intIDTrans As ULong) As DataTable
+        Dim sql As String
+        Dim dt As DataTable = New DataTable
+        sql = "select * from InfoComprobantes where TransID =" & intIDTrans
+
+        Dim comando As SqlCommand = New SqlCommand(sql, ConexionServidorPrincipal)
+        Dim adap As SqlDataAdapter = New SqlDataAdapter(comando)
+        adap.Fill(dt)
+
+        Return dt
+    End Function
+
+    Public Function obtenerVariableReeviaCorreo() As DataTable
+        Dim sql As String
+        Dim dt As DataTable = New DataTable
+        sql = "select * from gnopcion2 where codigo ='ReenviaCompElecError' "
+
+        Dim comando As SqlCommand = New SqlCommand(sql, ConexionServidorPrincipal)
+        Dim adap As SqlDataAdapter = New SqlDataAdapter(comando)
+        adap.Fill(dt)
+
+        Return dt
+    End Function
+
     'Actualizar el xml generado y firmado
-    Public Sub guardarXMLOffLine(ByVal strArchivoXML As String, ByVal intIDTrans As ULong)
+    'para el parametro de firmada 
+    'si es 0 o null no esta firmada(No se puende enviar)
+    'si es 1 es firmada (se debe encia por primera vez)
+    'si es 2 es firmada ,ya se envio anteriormente y debe enviar agregando al asundo Correción)
+    'si es 3 es firmada, ya se envio anteriormente y ya no se debe enviar nuevamente 
+    Public Sub guardarXMLOffLine(ByVal strArchivoXML As String, ByVal intIDTrans As ULong, ByVal esFirmada As Integer)
         Dim dato As New Datos
 
         Try
@@ -316,7 +345,7 @@ Public Class ConexionBD
                     End If
                     'bandera para que permita nuevamente  enviar el archivo
                     Cmd.Parameters.AddWithValue("@bandpdf", 0)
-                    Cmd.Parameters.AddWithValue("@estaFirmada", 1)
+                    Cmd.Parameters.AddWithValue("@estaFirmada", esFirmada)
                     Cmd.ExecuteNonQuery()
                 End Using
             End Using
