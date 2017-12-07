@@ -148,6 +148,8 @@ Public Class ConexionBD
                                           ByVal intEnviado As Byte, ByVal strCodigoMensaje As String, _
                                           ByVal strInformacionAdicional As String, ByVal strTipoEmision As String, _
                                           ByVal strNumeroAutorizacion As String, ByVal dteFechaAutorizacion As Date, ByVal intIDTrans As ULong)
+        Dim log As New Log
+        log.NombreFuncion = "Metodo :GuardarDatosSRI"
         Dim dato As New Datos
 
         Try
@@ -172,11 +174,14 @@ Public Class ConexionBD
                         Dim ParametroSQLXML As SqlXml = New SqlXml(New XmlTextReader(New StringReader("<estado>No Registrado</estado>")))
                         Cmd.Parameters.AddWithValue("@punteroaCampoXML", ParametroSQLXML)
                     End If
-                    Cmd.ExecuteNonQuery()
+                    Dim numeroReg As Integer = Cmd.ExecuteNonQuery()
+                    numeroReg = numeroReg + 1
                 End Using
             End Using
         Catch ex As System.Data.SqlClient.SqlException
-            '//
+            log.SistemaError = ex.Message
+            log.MensajeError = "Error al ejecutar metodo GuardarDatosSRI"
+            Throw New Exception(ex.Message)
         End Try
     End Sub
 

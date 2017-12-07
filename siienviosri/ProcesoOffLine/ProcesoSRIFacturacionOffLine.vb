@@ -161,10 +161,15 @@ Public Class ProcesoSRIFacturacionOffLine
             End If
         Else
             'se almacena como firmado y requiere envio
-            If dataVariableReenvio.Rows(0).IsNull("Valor") Then
+            If dataVariableReenvio IsNot Nothing AndAlso dataVariableReenvio.Rows.Count > 0 AndAlso dataVariableReenvio.Rows(0).IsNull("Valor") Then
                 intBanderaEstaFirmado = 1
             Else
-                intBanderaEstaFirmado = row("EstaFirmada")
+                If row.IsNull("EstaFirmada") Then
+                    intBanderaEstaFirmado = 1
+                Else
+                    intBanderaEstaFirmado = row("EstaFirmada")
+                End If
+
             End If
 
         End If
