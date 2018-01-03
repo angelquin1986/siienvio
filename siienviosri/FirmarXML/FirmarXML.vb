@@ -79,7 +79,7 @@ Public Class FirmarXML
     'copiar el archivo firmado en la carpeta firmados y en la carpeta  por autorizar
     'eliminar el archivo de generados
     Public Function Firmar() As Boolean
-        Shell("C:\IA\EnvioSRI\FirmarXML\FirmarXMLv01 " & establecerParametros(), AppWinStyle.Hide)
+        Shell("FirmarXML\FirmarXMLv01 " & establecerParametros(), AppWinStyle.Hide)
         System.Threading.Thread.Sleep(6000)
 
         Try

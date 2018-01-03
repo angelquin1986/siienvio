@@ -30,8 +30,8 @@ Public Class Administracion
         Me.TabControl1.TabPages.Remove(Me.TabCompFirmados)
         Me.TabControl2.TabPages.Remove(Me.tbpBDSecundaria)
         Try
-            'Dim Decodificar As New CodificarBase64("fuentes\ia2012,nitro2015,sa,Rtl8139c", "")
-            'Dim txtCodificado = Decodificar.StringToBase64()
+            Dim Decodificar As New CodificarBase64("fuentes\ia2012,nitro2015,sa,Rtl8139c", "")
+            Dim txtCodificado = Decodificar.StringToBase64()
 
             blnContingencia = False
             CargarConfiguracionServidorCorreo()
@@ -270,14 +270,14 @@ Public Class Administracion
             optTipoAmbientePruebas.Checked = False
         End If
 
-        Decodificar.DecodificarTexto = Archivo.LeerArchivoTexto("C:\IA\EnvioSRI\iadt000.ibz")
+        Decodificar.DecodificarTexto = Archivo.LeerArchivoTexto("iadt000.ibz")
         Dim TestArray() As String = Split(Decodificar.DecodificarTexto, ",")
         txtServidorBDP.Text = TestArray(0)
         txtBaseDatosP.Text = TestArray(1)
         txtNombreUsuarioBDP.Text = TestArray(2)
         txtContrasenaBDP.Text = TestArray(3)
 
-        Decodificar.DecodificarTexto = Archivo.LeerArchivoTexto("C:\IA\EnvioSRI\iadt001.ibz")
+        Decodificar.DecodificarTexto = Archivo.LeerArchivoTexto("iadt001.ibz")
         Dim TestArray1() As String = Split(Decodificar.DecodificarTexto, ",")
         txtServidorBDS.Text = TestArray1(0)
         txtBaseDatosS.Text = TestArray1(1)
@@ -285,7 +285,7 @@ Public Class Administracion
         txtContrasenaBDS.Text = TestArray1(3)
 
         Try
-            Decodificar.DecodificarTexto = Archivo.LeerArchivoTexto("C:\IA\EnvioSRI\iadt002.ibz")
+            Decodificar.DecodificarTexto = Archivo.LeerArchivoTexto("iadt002.ibz")
             Dim TestArray2() As String = Split(Decodificar.DecodificarTexto, ",")
             chkUtilizarProxy.Checked = TestArray2(0)
             txtDireccionProxy.Text = TestArray2(1)
@@ -595,13 +595,13 @@ Public Class Administracion
         '--------------------------------------------------------------------------------------------
 
         Codificar.CodificarTexto = txtServidorBDP.Text & "," & txtBaseDatosP.Text & "," & txtNombreUsuarioBDP.Text & "," & txtContrasenaBDP.Text
-        Archivo.GuardarArchivoTexto("C:\IA\EnvioSRI\iadt000.ibz", Codificar.CodificarTexto, False)
+        Archivo.GuardarArchivoTexto("iadt000.ibz", Codificar.CodificarTexto, False)
 
         Codificar.CodificarTexto = txtServidorBDS.Text & "," & txtBaseDatosS.Text & "," & txtNombreUsuarioBDS.Text & "," & txtContrasenaBDS.Text
-        Archivo.GuardarArchivoTexto("C:\IA\EnvioSRI\iadt001.ibz", Codificar.CodificarTexto, False)
+        Archivo.GuardarArchivoTexto("iadt001.ibz", Codificar.CodificarTexto, False)
 
         Codificar.CodificarTexto = chkUtilizarProxy.Checked & "," & txtDireccionProxy.Text & "," & txtPuertoProxy.Text & "," & chkIniciarAplicacion.Checked & "," & chkIniciarConWindows.Checked & "," & System.Convert.ToString(nudNumActualiza.Value) & "," & dtpHoraEnvio.Value
-        Archivo.GuardarArchivoTexto("C:\IA\EnvioSRI\iadt002.ibz", Codificar.CodificarTexto, False)
+        Archivo.GuardarArchivoTexto("iadt002.ibz", Codificar.CodificarTexto, False)
 
         BD.GuardarConfigServidorCorreo(txtPuerto.Text, txtServidorCorreo.Text, txtNombreUsuario.Text, txtContrasenaCorreo.Text, txtAsunto.Text, txtMensaje.Text, intConexionSeguridad, txtEnviarCopia.Text, txtUsuarioCorreo.Text)
         BD.GuardarConfiguracionGeneral(txtComprobantesGenerados.Text, txtComprobantesFirmados.Text, txtComprobantesAutorizados.Text, txtComprobantesNoautorizados.Text, txtArchivoP12.Text, txtContraseniaToken.Text, strTipoAmbiente01, txtcomprobantesContingencia.Text, txtComprobantesEnviados.Text,

@@ -1,9 +1,6 @@
 D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Release\Interop.VBA.dll
 D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Release\Interop.VSPrinter7Lib.dll
 D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Release\SiiEnvioSRI.vbproj.ResolveComReference.cache
-D:\EAP\des\siienvia\SiiEnvioSRI\bin\Release\SiiEnvioSRI.exe
-D:\EAP\des\siienvia\SiiEnvioSRI\bin\Release\SiiEnvioSRI.pdb
-D:\EAP\des\siienvia\SiiEnvioSRI\bin\Release\SiiEnvioSRI.xml
 D:\EAP\des\siienvia\SiiEnvioSRI\bin\Release\WebServiceSRI.dll
 D:\EAP\des\siienvia\SiiEnvioSRI\bin\Release\WebServiceSRI.pdb
 D:\EAP\des\siienvia\SiiEnvioSRI\bin\Release\WebServiceSRI.xml
@@ -12,6 +9,13 @@ D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Release\SiiEnvioSRI.Administracion.resou
 D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Release\SiiEnvioSRI.Form1.resources
 D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Release\SiiEnvioSRI.Resources.resources
 D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Release\SiiEnvioSRI.vbproj.GenerateResource.Cache
-D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Release\SiiEnvioSRI.exe
-D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Release\SiiEnvioSRI.xml
-D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Release\SiiEnvioSRI.pdb
+D:\EAP\des\siienvia\SiiEnvioSRI\bin\Release\SiiEnvioSRI2.0.exe.manifest
+D:\EAP\des\siienvia\SiiEnvioSRI\bin\Release\SiiEnvioSRI2.0.application
+D:\EAP\des\siienvia\SiiEnvioSRI\bin\Release\SiiEnvioSRI2.0.exe
+D:\EAP\des\siienvia\SiiEnvioSRI\bin\Release\SiiEnvioSRI2.0.pdb
+D:\EAP\des\siienvia\SiiEnvioSRI\bin\Release\SiiEnvioSRI2.0.xml
+D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Release\SiiEnvioSRI2.0.exe.manifest
+D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Release\SiiEnvioSRI2.0.application
+D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Release\SiiEnvioSRI2.0.exe
+D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Release\SiiEnvioSRI2.0.xml
+D:\EAP\des\siienvia\SiiEnvioSRI\obj\x86\Release\SiiEnvioSRI2.0.pdb

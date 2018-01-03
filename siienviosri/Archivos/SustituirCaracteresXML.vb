@@ -53,7 +53,7 @@ Public Class SustituirCaracteresXML
         Dim strm As StreamReader = Nothing
         Dim strline As String = ""
         Dim strreplace As String = ""
-        Dim tempfile As String = "C:\IA\EnvioSRI\archivo01.xml"
+        Dim tempfile As String = "archivo01.xml"
 
         Try
             FileCopy(strArchivoXML, tempfile)

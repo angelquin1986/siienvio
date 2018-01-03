@@ -46,7 +46,7 @@
         Dim Archivo As New Archivo
 
         If strDircLog = "" Then
-            strDircLog = "C:\IA\EnvioSRI\logEnvioSRI.log"
+            strDircLog = "logEnvioSRI.log"
         End If
 
         MensajeError = strNomFunc & " :: " & strMensaje & vbLf & strMenSyst & vbLf + _
